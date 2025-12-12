@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>💖 For My Cupcake - A Love Letter</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;600;700&family=Playfair+Display:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --soft-bg: #fbe9e3;
+    --text-main:#2b2321;
+    --theme-color: #fb2943;
+    --text-color:#3b0a1e;
+    --card-bg: rgba(255,255,255,0.08);
+    --highlight-bg:#fb2943;
+    --highlight-text:#fff;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  html,body{
+    height:100%;
+    margin:0;
+    padding:0;
+  }
+
+  body{
+    font-family:'Libre Baskerville', serif;
+    background:url('https://i.pinimg.com/736x/fe/51/a6/fe51a62a830a96529148fdb785fb2770.jpg') center/cover no-repeat fixed;
+    color:var(--text-main);
+    min-height:100vh;
+  }
+
+  .screen{
+    display:none;
+    min-height:100vh;
+    padding:24px;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+  }
+  .screen.active{
+    display:flex;
+  }
+
+  .modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.5);
+    align-items:center;
+    justify-content:center;
+    z-index:1000;
+  }
+  .modal.active{
+    display:flex;
+  }
+  .modal-content{
+    background:#fff;
+    border-radius:20px;
+    padding:30px;
+    max-width:900px;
+    width:90%;
+    max-height:90vh;
+    overflow-y:auto;
+    position:relative;
+    text-align:center;
+  }
+  .modal-close{
+    position:absolute;
+    top:16px;
+    left:16px;
+    background:var(--theme-color);
+    color:#fff;
+    border:none;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:20px;
+    font-weight:bold;
+    transition:all 0.2s;
+    z-index:1001;
+  }
+  .modal-close:hover{
+    transform:scale(1.1);
+  }
+
+  .card{
+    background:rgba(255,255,255,0.85);
+    padding:40px 32px;
+    border-radius:20px;
+    box-shadow:0 14px 40px rgba(0,0,0,0.12);
+    max-width:720px;
+    width:100%;
+    text-align:center;
+  }
+
+  .title{
+    font-family:'Playfair Display SC', serif;
+    font-size:40px;
+    letter-spacing:0.06em;
+    margin-bottom:16px;
+    color:var(--text-main);
+  }
+
+  .caption{
+    font-size:18px;
+    margin-bottom:32px;
+    color:var(--text-main);
+  }
+
+  .btn-row{
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    margin-top:24px;
+    flex-wrap:wrap;
+    position:relative;
+  }
+
+  .btn{
+    padding:10px 22px;
+    border-radius:999px;
+    border:none;
+    background:#fff;
+    cursor:pointer;
+    font-size:16px;
+    transition:all .2s ease;
+    min-width:110px;
+    font-family:inherit;
+    font-weight:600;
+  }
+  .btn-primary{
+    background:var(--theme-color);
+    color:#fff;
+  }
+  .btn-secondary{
+    background:#f0f0f0;
+    color:var(--text-main);
+  }
+  .btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+  }
+  .btn:active{
+    transform:translateY(0);
+  }
+
+  .img-grid{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    align-items:center;
+  }
+  .img-grid img{
+    max-width:260px;
+    width:100%;
+    border-radius:18px;
+    box-shadow:0 10px 28px rgba(0,0,0,0.18);
+  }
+
+  @media (max-width:600px){
+    .card{padding:28px 20px;}
+    .title{font-size:30px;}
+  }
+
+  .back-button-top{
+    position:absolute;
+    top:20px;
+    left:20px;
+    z-index:10;
+  }
+
+  #step5-wrapper{
+    display:none;
+    background: url('https://i.pinimg.com/736x/14/9b/1b/149b1b4d8582b9453b6685de9ab06b7e.jpg') center/cover no-repeat fixed;
+    background-color: #ffc0cb;
+    font-family: 'Crimson Text', serif;
+    color:var(--text-color);
+    font-size:20px;
+    font-weight:700;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.75;
+    padding:36px 18px;
+    min-height:100vh;
+    position:relative;
+  }
+  #step5-wrapper.active{
+    display:block;
+  }
+
+  .float-container{
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:1;
+  }
+  .straw{
+    position:absolute;
+    font-size:28px;
+    animation: floatUp 8s linear infinite;
+    opacity:0.7;
+  }
+  @keyframes floatUp{
+    0%{transform:translateY(120vh) translateX(0) rotate(0deg); opacity:0;}
+    10%{opacity:1;}
+    90%{opacity:1;}
+    100%{transform:translateY(-30vh) translateX(30px) rotate(360deg); opacity:0;}
+  }
+
+  .timer-section {
+    width: 100%;
+    padding: 80px 20px;
+    background: url('https://i.pinimg.com/1200x/31/1b/5b/311b5bf425141ac9b45d5bb983acbcfc.jpg') center/cover no-repeat fixed;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .timer-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    animation: fadeIn 0.8s ease-out;
+  }
+
+  .caption-timer {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+    color: #000;
+    margin-bottom: 50px;
+    letter-spacing: 0.5px;
+  }
+
+  .timer-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .time-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .time-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 96px;
+    font-weight: 700;
+    color: #000;
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+
+  .time-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .separator {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 30px;
+  }
+
+  @media (max-width: 768px) {
+    .timer-section {
+      padding: 60px 20px;
+      margin-bottom: 30px;
+    }
+
+    .caption-timer {
+      font-size: 20px;
+      margin-bottom: 40px;
+    }
+
+    .time-value {
+      font-size: 48px;
+    }
+
+    .separator {
+      font-size: 42px;
+    }
+
+    .timer-container {
+      gap: 12px;
+    }
+  }
+
+  .container{
+    max-width:880px;
+    margin:0 auto;
+    background:var(--card-bg);
+    border-radius:18px;
+    padding:36px;
+    box-shadow:0 12px 40px rgba(0,0,0,0.15);
+    backdrop-filter: blur(2px);
+    position:relative;
+    z-index:2;
+  }
+
+  p{margin:0 0 24px 0; font-size:22px;}
+  .highlight{
+    background: var(--highlight-bg);
+    color:var(--highlight-text);
+    padding:6px 12px;
+    border-radius:12px;
+    font-weight:700;
+    display:inline-block;
+    text-shadow: 
+      0 0 8px rgba(251,41,67,0.6),
+      1px 1px 2px rgba(0,0,0,0.3),
+      -1px -1px 2px rgba(255,255,255,0.2);
+    position:relative;
+  }
+  .highlight::before{
+    content:'';
+    position:absolute;
+    top:-2px; left:-2px; right:-2px; bottom:-2px;
+    background: linear-gradient(45deg, #ff4757, #ff3838, #fb2943, #ff6b7a);
+    border-radius:14px;
+    z-index:-1;
+    opacity:0.8;
+  }
+
+  .final-question{
+    font-size:30px;
+    text-align:center;
+    cursor:pointer;
+    padding:20px;
+    border-radius:16px;
+    transition:all 0.3s ease;
+    user-select:none;
+    position:relative;
+  }
+  .final-question:hover{
+    transform:scale(1.02);
+    text-shadow:0 0 20px rgba(251,41,67,0.5);
+  }
+  .final-question.clicked{
+    color:#fb2943;
+    text-shadow:0 0 30px rgba(251,41,67,0.8);
+    animation:glow 2s ease-in-out infinite alternate;
+  }
+  .final-question.clicked::after{
+    content:'YES 💕';
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    font-size:24px;
+    font-weight:700;
+    color:#ff69b4;
+    animation:popIn 0.6s ease-out;
+  }
+  @keyframes glow{
+    from{text-shadow:0 0 20px rgba(251,41,67,0.8);}
+    to{text-shadow:0 0 40px rgba(251,41,67,1), 0 0 60px rgba(251,41,67,0.6);}
+  }
+  @keyframes popIn{
+    0%{transform:translate(-50%,-50%) scale(0); opacity:0;}
+    50%{transform:translate(-50%,-50%) scale(1.2);}
+    100%{transform:translate(-50%,-50%) scale(1); opacity:1;}
+  }
+
+  .hearts{
+    position:fixed;
+    pointer-events:none;
+    z-index:100;
+    top:0; left:0;
+    width:100vw; height:100vh;
+  }
+  .heart{
+    position:absolute;
+    font-size:20px;
+    pointer-events:none;
+    animation:heartBurst 1.5s ease-out forwards;
+  }
+  @keyframes heartBurst{
+    0%{
+      transform:translateX(0) translateY(0) scale(0) rotate(0deg);
+      opacity:1;
+    }
+    100%{
+      transform:translateX(100px) translateY(-100px) scale(1) rotate(720deg);
+      opacity:0;
+    }
+  }
+
+  @media (max-width:680px){
+    .container{padding:20px;}
+  }
+
+  .music{
+    margin: 22px 0;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 6px 28px rgba(0,0,0,0.08);
+  }
+
+  .music-button{
+    font-family: 'Crimson Text', serif;
+    font-size:24px;
+    font-weight:700;
+    padding:14px 28px;
+  }
+
+  .scroll-indicator{
+    position:fixed;
+    left:50%;
+    bottom:18px;
+    transform:translateX(-50%);
+    z-index:50;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+    color:#fff;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    opacity:0.9;
+    pointer-events:none;
+  }
+  .scroll-indicator-arrow{
+    font-size:20px;
+    animation:bounce 1.4s ease-in-out infinite;
+  }
+  @keyframes bounce{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(6px);}
+  }
+  .scroll-indicator.hidden{
+    opacity:0;
+    visibility:hidden;
+    transition:opacity .3s ease, visibility .3s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  #step3-valentine {
+    background: url('https://i.pinimg.com/736x/09/75/37/097537af9e8e275f1f8c840bedf12cc3.jpg') center/cover no-repeat fixed !important;
+  }
+
+  #step3-valentine .card {
+    background: rgba(255,255,255,0.9);
+  }
+
+  #step3-valentine h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    color: #d63384;
+    margin-bottom: 30px;
+  }
+
+  #step3-valentine .btn-row {
+    gap: 30px;
+    margin-top: 30px;
+    height: 60px;
+  }
+
+  #step4-transition {
+    background: url('https://i.pinimg.com/736x/2c/0c/47/2c0c4763a7f91ae4e3e9b2142e2b31d3.jpg') center/cover no-repeat fixed !important;
+  }
+
+  #step4-transition .card {
+    animation: slideUp 0.6s ease-out;
+    background: rgba(255,255,255,0.9);
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .celebration-icon {
+    display: none;
+  }
+
+  #noBtn3 {
+    cursor: pointer !important;
+    opacity: 1;
+  }
+
+  #yesBtn3 {
+    background-color: #28a745 !important;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="float-container" id="strawberries"></div>
+<div class="hearts" id="hearts"></div>
+
+<div class="scroll-indicator" id="scrollIndicator">
+  <span style="font-size:11px;">scroll</span>
+  <span class="scroll-indicator-arrow">⬇</span>
+</div>
+
+<div class="modal" id="musicModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeMusicModal()">←</button>
+    <div class="music" role="region" aria-label="Playlist" style="margin:20px 0;">
+      <iframe src="https://open.spotify.com/embed/playlist/6h48LqwuHEgrCjrZmRCCGf?utm_source=generator" width="100%" height="800" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 1 -->
+<section class="screen active" id="step1">
+  <div class="card">
+    <p class="caption">I've been waiting for this moment for a long time yk.</p>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="goToStep2()">Oh really?</button>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 2 -->
+<section class="screen" id="step2">
+  <div class="card">
+    <h1 class="title">Are you in love with me?</h1>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="showNoPanel()">No</button>
+      <button class="btn btn-primary" onclick="showYesPanel()">Yes</button>
+    </div>
+    <button class="btn btn-secondary" onclick="goBackToStep1()" style="margin-top:16px; width:100%; max-width:120px;">← Back</button>
+
+    <div id="noPanel" style="margin-top:28px; display:none;">
+    </div>
+
+    <div id="yesPanel" style="margin-top:28px; display:none;">
+      <div class="img-grid">
+        <img src="https://i.pinimg.com/736x/79/36/73/7936736c91c37ae0306e31b40d43cb29.jpg" alt="happy 1">
+        <img src="https://i.pinimg.com/736x/75/d4/61/75d4618fdbf96b41dc4bcdfe9d6af04d.jpg" alt="happy 2">
+      </div>
+      <div class="btn-row" style="margin-top:26px;">
+        <button class="btn btn-primary" onclick="goToStep3()">Let me ask you for one last time 💌</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 3 - VALENTINE QUESTION -->
+<section class="screen" id="step3-valentine">
+  <!-- NEW: Strawberries Container for Step 3 -->
+  <div class="float-container" id="strawberries3"></div>
+
+  <div class="card">
+    <h1>Will you be my girlfriend? 💗</h1>
+    
+    <div class="btn-row" style="justify-content: center;">
+      <button class="btn btn-secondary" id="noBtn3" onclick="alert('Please say yes! 🥺')">No</button>
+      <button class="btn btn-primary" id="yesBtn3" onclick="goToStep4()">Yes</button>
+    </div>
+
+    <button class="btn btn-secondary" onclick="goBackToStep2()" style="margin-top:20px; width:100%; max-width:120px;">← Back</button>
+  </div>
+</section>
+
+<!-- STEP 4 - TRANSITION PAGE -->
+<section class="screen" id="step4-transition">
+  <div class="card">
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="goToStep5()">Here's all I wanna say cupcake 🧁💌</button>
+    </div>
+    <button class="btn btn-secondary" onclick="goBackToStep3()" style="margin-top:16px; width:100%; max-width:120px;">← Back</button>
+  </div>
+</section>
+
+<!-- STEP 5 – LOVE LETTER -->
+<div id="step5-wrapper">
+  <div class="back-button-top">
+    <button class="btn btn-secondary" onclick="goBackToStep4()">← Back</button>
+  </div>
+
+  <div class="float-container" id="strawberries5"></div>
+
+  <div class="timer-section">
+    <div class="timer-wrapper">
+      <div class="caption-timer">I found my treasure since 💌😭</div>
+      <div class="timer-container">
+        <div class="time-unit">
+          <span class="time-value" id="days">00</span>
+          <span class="time-label">Days</span>
+        </div>
+        <span class="separator">:</span>
+        <div class="time-unit">
+          <span class="time-value" id="hours">00</span>
+          <span class="time-label">Hours</span>
+        </div>
+        <span class="separator">:</span>
+        <div class="time-unit">
+          <span class="time-value" id="seconds">00</span>
+          <span class="time-label">Seconds</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <p>There is something I gotta tell you for a long time – a very long time tbh – I knew you since <span class="highlight">June 3 11:24 PM</span> and I honestly have no idea on how you came into my life ( yes yes I remember every single detail about you because am madly in love cupcakeeee ),… I think I really like you, not just as a best friend... but more than that tbh.</p>
+
+    <div style="text-align:center; margin:24px 0;">
+      <img loading="lazy" src="https://i.pinimg.com/736x/cd/39/07/cd3907f05e0986b47746ff2867d5bb56.jpg" alt="Romantic moment" style="max-width:450px; width:100%; border-radius:14px; border:1px solid #000;" />
+    </div>
+
+    <p>When I first texted you I lowkey hated you and thought you were the last person that I would fall in love with but idk something ... really something changed – we started giving out nicknames – and I loved every moment of it tbh I never expected that me at this time would be writing a love letter rn especially when I promised myself not to fall in love with anyone in my whole damn life – something inside me tells me louder that you are the one and you are the only one for me in this lifetime ––</p>
+
+    <p><span class="highlight">Every single day when I text you I feel good – my stress ? GONE. and mental health was improved to an amazing extent</span> Istg I never felt like this in my whole lifetime never when I texted others – not a single bit.</p>
+
+    <div style="text-align:center; margin:24px 0;">
+      <img loading="lazy" src="https://i.pinimg.com/736x/b6/fa/4d/b6fa4d8ab4463e1440f8448fdf09d928.jpg" alt="Romantic moment 2" style="max-width:450px; width:100%; border-radius:14px; border:1px solid #000;" />
+    </div>
+
+    <p>Whenever you call me by cuteee nicknames like bbg and bitch I only got more happier – Your jokes , your amazing personality that no one can imitate is what actually made me fall in love with you and you better stay like this -</p>
+
+    <div style="text-align:center; margin:24px 0;">
+      <img loading="lazy" src="https://i.pinimg.com/1200x/d2/17/99/d21799b12411c212d80e5faf02d85f79.jpg" alt="Romantic moment 3" style="max-width:450px; width:100%; border-radius:14px; border:1px solid #000;" />
+    </div>
+
+    <p><span class="highlight">From the moment I get out of my bed you are the only thing in my mind...</span> I think "what would be she doing at the moment and where would she be" – "Is she well or not", "Is she sad", "Is she happy", "Does she like me back??" All these questions have been running on my mind – EVERYDAY and the times when you aren't online?? I missed you so much cupcakeee and the times when we were busy on our exams <span class="highlight">I always wished we spoke more, more and moreeee</span> and since you leave without texting me – I still remember you asking me to find a gf for myself but things took a turn and the one you asked me to find is actually you –</p>
+
+    <p>You made me feel valued and cared - you're the only person who made me feel special and <span class="highlight">made me fall in love with you again, again and again.</span></p>
+
+    <p>I promise – promise that I'll love you forever , send you these long ass paragraphs regularlyyy , never change myself for the sake of anyone, and make sure that you'll never be replaced by anyone. NEVER. – you'll never be unloved by me <span class="highlight">NEVER NO MATTER WHAT</span> – I promise you that I'll make you the HAPPIEST GIRL EVERRRR .</p>
+
+    <p><span class="highlight">Tears are the last thing I'd ever want to see from your eyes.</span> When you said "You have me" while texting me I hope you mean that my cupcakeee?? I promise you one more thing – You'll forever be my favourite notification and no matter how many people text me – your dms will be the first one to get opened by me -</p>
+
+    <p>You're staying with me no matter what... <span class="highlight">You're mineee</span> and forever be my sweet cupcake , muffin or my baby lmao</p>
+
+    <div style="text-align:center; margin:24px 0;">
+      <img loading="lazy" src="https://i.pinimg.com/736x/39/69/d5/3969d5f3d547949466d5fc7c685dcbdf.jpg" alt="Lovely together" style="max-width:450px; width:100%; border-radius:14px; border:1px solid #000;" />
+    </div>
+
+    <p class="final-question">TELL ME – TELL ME ONE LAST TIME – Can I be your boyfriend forever??? &lt;3</p>
+
+    <div style="text-align:center; margin:28px 0;">
+      <button class="btn btn-primary music-button" onclick="openMusicModal()">
+        Songs that reminded me of you 😭
+      </button>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function goToStep2() {
+  document.getElementById('step1').classList.remove('active');
+  document.getElementById('step2').classList.add('active');
+  resetScrollIndicator();
+}
+
+function showNoPanel() {
+  document.getElementById('noPanel').style.display = 'block';
+  document.getElementById('yesPanel').style.display = 'none';
+}
+
+function showYesPanel() {
+  document.getElementById('yesPanel').style.display = 'block';
+  document.getElementById('noPanel').style.display = 'none';
+}
+
+function goToStep3() {
+  document.getElementById('step2').classList.remove('active');
+  document.getElementById('step3-valentine').classList.add('active');
+  spawnStrawberries('strawberries3'); // Start strawberries for step 3
+  resetScrollIndicator();
+}
+
+function goToStep4() {
+  document.getElementById('step3-valentine').classList.remove('active');
+  document.getElementById('step4-transition').classList.add('active');
+  resetScrollIndicator();
+}
+
+function goToStep5() {
+  document.getElementById('step4-transition').classList.remove('active');
+  document.getElementById('step5-wrapper').classList.add('active');
+  startTimer();
+  spawnStrawberries('strawberries5'); // Start strawberries for step 5
+  resetScrollIndicator();
+}
+
+function goBackToStep1() {
+  document.getElementById('step2').classList.remove('active');
+  document.getElementById('step1').classList.add('active');
+  window.scrollTo(0,0);
+  resetScrollIndicator();
+}
+
+function goBackToStep2() {
+  document.getElementById('step3-valentine').classList.remove('active');
+  document.getElementById('step2').classList.add('active');
+  window.scrollTo(0,0);
+  resetScrollIndicator();
+}
+
+function goBackToStep3() {
+  document.getElementById('step4-transition').classList.remove('active');
+  document.getElementById('step3-valentine').classList.add('active');
+  spawnStrawberries('strawberries3'); // Restart strawberries when going back
+  window.scrollTo(0,0);
+  resetScrollIndicator();
+}
+
+function goBackToStep4() {
+  document.getElementById('step5-wrapper').classList.remove('active');
+  document.getElementById('step4-transition').classList.add('active');
+  window.scrollTo(0,0);
+  resetScrollIndicator();
+}
+
+function openMusicModal() {
+  document.getElementById('musicModal').classList.add('active');
+}
+
+function closeMusicModal() {
+  document.getElementById('musicModal').classList.remove('active');
+}
+
+// Timer Logic
+const startDate = new Date('2025-06-03T23:24:00').getTime();
+
+function updateTimer() {
+  const now = new Date().getTime();
+  const difference = now - startDate;
+
+  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+  document.getElementById('days').textContent = String(days).padStart(2, '0');
+  document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+  document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+}
+
+let timerInterval;
+function startTimer() {
+  updateTimer();
+  timerInterval = setInterval(updateTimer, 1000);
+}
+
+function spawnStrawberries(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  
+  function spawnOne() {
+    const span = document.createElement('span');
+    span.className = 'straw';
+    span.innerText = '🍓';
+    span.style.left = Math.random() * 95 + '%';
+    span.style.animationDuration = (6 + Math.random() * 4) + 's';
+    container.appendChild(span);
+    setTimeout(() => span.remove(), 10000);
+  }
+  
+  spawnOne();
+  // Store interval ID on the container element to potentially clear it later if needed (though not strictly required for this flow)
+  if (!container.dataset.interval) {
+     const intervalId = setInterval(spawnOne, 1200);
+     container.dataset.interval = intervalId;
+  }
+}
+
+const finalQuestion = document.querySelector('.final-question');
+const heartsContainer = document.getElementById('hearts');
+
+if (finalQuestion && heartsContainer) {
+  finalQuestion.addEventListener('click', function() {
+    this.classList.add('clicked');
+    
+    for(let i = 0; i < 20; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = ['💖','💕','💗','💓','❤️','💝'][Math.floor(Math.random()*6)];
+      heart.style.left = '50%';
+      heart.style.top = '50%';
+      heart.style.animationDelay = (i * 0.05) + 's';
+      heart.style.animationDuration = (0.8 + Math.random() * 0.7) + 's';
+      heartsContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 2000);
+    }
+    
+    this.style.pointerEvents = 'none';
+  });
+}
+
+const scrollIndicator = document.getElementById('scrollIndicator');
+
+function handleScroll() {
+  if (window.scrollY > 40) {
+    scrollIndicator.classList.add('hidden');
+  }
+}
+
+function resetScrollIndicator() {
+  scrollIndicator.classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+
+window.addEventListener('scroll', handleScroll);
+</script>
+
+</body>
+</html>
