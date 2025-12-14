@@ -98,6 +98,7 @@
     max-width:720px;
     width:100%;
     text-align:center;
+    position:relative;
   }
 
   .title{
@@ -151,11 +152,14 @@
     transform:translateY(0);
   }
 
+  /* Updated Image Grid for side-by-side layout */
   .img-grid{
     display:flex;
-    flex-direction:column;
+    flex-direction:row;
     gap:18px;
     align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
   }
   .img-grid img{
     max-width:260px;
@@ -313,6 +317,7 @@
     opacity:0.8;
   }
 
+  /* Updated final question */
   .final-question{
     font-size:30px;
     text-align:center;
@@ -322,58 +327,11 @@
     transition:all 0.3s ease;
     user-select:none;
     position:relative;
+    color:var(--text-color);
   }
   .final-question:hover{
     transform:scale(1.02);
     text-shadow:0 0 20px rgba(251,41,67,0.5);
-  }
-  .final-question.clicked{
-    color:#fb2943;
-    text-shadow:0 0 30px rgba(251,41,67,0.8);
-    animation:glow 2s ease-in-out infinite alternate;
-  }
-  .final-question.clicked::after{
-    content:'YES 💕';
-    position:absolute;
-    top:50%; left:50%;
-    transform:translate(-50%,-50%);
-    font-size:24px;
-    font-weight:700;
-    color:#ff69b4;
-    animation:popIn 0.6s ease-out;
-  }
-  @keyframes glow{
-    from{text-shadow:0 0 20px rgba(251,41,67,0.8);}
-    to{text-shadow:0 0 40px rgba(251,41,67,1), 0 0 60px rgba(251,41,67,0.6);}
-  }
-  @keyframes popIn{
-    0%{transform:translate(-50%,-50%) scale(0); opacity:0;}
-    50%{transform:translate(-50%,-50%) scale(1.2);}
-    100%{transform:translate(-50%,-50%) scale(1); opacity:1;}
-  }
-
-  .hearts{
-    position:fixed;
-    pointer-events:none;
-    z-index:100;
-    top:0; left:0;
-    width:100vw; height:100vh;
-  }
-  .heart{
-    position:absolute;
-    font-size:20px;
-    pointer-events:none;
-    animation:heartBurst 1.5s ease-out forwards;
-  }
-  @keyframes heartBurst{
-    0%{
-      transform:translateX(0) translateY(0) scale(0) rotate(0deg);
-      opacity:1;
-    }
-    100%{
-      transform:translateX(100px) translateY(-100px) scale(1) rotate(720deg);
-      opacity:0;
-    }
   }
 
   .music{
@@ -486,7 +444,173 @@
     background-color: #28a745 !important;
   }
 
-  /* --- MOBILE OPTIMIZATION FIX --- */
+  /* Conversation screenshot styles */
+  .chat-screenshot {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin: 30px auto;
+    max-width: 400px;
+    position: relative;
+    border: 2px solid transparent;
+    animation: glowBorder 2s ease-in-out infinite alternate;
+    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+    overflow: hidden;
+  }
+
+  @keyframes glowBorder {
+    0% {
+      border-color: #ff2226;
+      box-shadow: 0 0 20px rgba(255, 34, 38, 0.5),
+                  0 0 30px rgba(255, 34, 38, 0.3),
+                  0 0 40px rgba(255, 34, 38, 0.2);
+    }
+    100% {
+      border-color: #ff2226;
+      box-shadow: 0 0 30px rgba(255, 34, 38, 0.7),
+                  0 0 40px rgba(255, 34, 38, 0.5),
+                  0 0 50px rgba(255, 34, 38, 0.3);
+    }
+  }
+
+  .message-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .message {
+    padding: 10px 14px;
+    border-radius: 18px;
+    max-width: 85%;
+    word-wrap: break-word;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .message.sent {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #ff2226, #ff2226);
+    color: white;
+    border-bottom-right-radius: 4px;
+  }
+
+  .message.received {
+    align-self: flex-start;
+    background: #f0f0f0;
+    color: #333;
+    border-bottom-left-radius: 4px;
+  }
+
+  .message-sender {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+    font-weight: bold;
+  }
+
+  .message-sender.sent {
+    text-align: right;
+    color: #ff2226;
+  }
+
+  .message-sender.received {
+    text-align: left;
+    color: #666;
+  }
+
+  .timestamp {
+    font-size: 11px;
+    color: #999;
+    text-align: center;
+    margin: 8px 0;
+    font-style: italic;
+  }
+
+  .typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    background: #f0f0f0;
+    border-radius: 18px;
+    width: fit-content;
+    margin-top: 8px;
+  }
+
+  .typing-dot {
+    width: 6px;
+    height: 6px;
+    background: #999;
+    border-radius: 50%;
+    animation: typing 1.4s infinite ease-in-out;
+  }
+
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes typing {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-4px); }
+  }
+
+  /* Step 4 specific styles */
+  .step4-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .step4-scroll-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: #ff2226;
+    font-size: 14px;
+    margin: 10px 0;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+  }
+
+  .step4-arrow {
+    font-size: 24px;
+    animation: bounceArrow 1.5s infinite;
+  }
+
+  @keyframes bounceArrow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  .step4-button-container {
+    position: relative;
+    margin-top: 20px;
+    padding-top: 20px;
+  }
+
+  .step4-button-container::before {
+    content: "Click here";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff2226;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
   @media (max-width: 768px) {
     .timer-section {
       padding: 60px 20px;
@@ -514,22 +638,27 @@
     .title{font-size:30px;}
     .container{padding:20px;}
 
-    /* CRITICAL FIX FOR SAMSUNG/IPHONE: Turn off fixed background */
+    /* Stack images on mobile */
+    .img-grid{
+      flex-direction:column;
+    }
+
+    .chat-screenshot {
+      margin: 20px auto;
+      padding: 15px;
+    }
+
+    .step4-button-container::before {
+      font-size: 10px;
+      padding: 3px 8px;
+    }
+
     body, #step5-wrapper, .timer-section {
       background-attachment: scroll !important;
       background-position: center top !important;
     }
   }
 
-  /* -----------------------------
-     Additional enhancements (ADDED)
-     - glassmorphism polish
-     - particle layer
-     - enhanced heart explosion styles
-     - playful no-button movement
-     ----------------------------- */
-
-  /* subtle vignette */
   .vignette {
     pointer-events: none;
     position: fixed;
@@ -539,7 +668,6 @@
     mix-blend-mode: multiply;
   }
 
-  /* particle layer */
   .particles {
     pointer-events: none;
     position: fixed;
@@ -562,14 +690,13 @@
     to { transform: translateY(-10vh) scale(1); opacity: 0; }
   }
 
-  /* enhanced glass card options for your existing .card and .container */
   .card, .container, .modal-content {
     background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.45));
     border: 1px solid rgba(255,255,255,0.35);
     backdrop-filter: blur(18px) saturate(1.12);
   }
 
-  /* explosion hearts added style */
+  /* Enhanced heart animation for button clicks */
   .enh-heart {
     position: fixed;
     font-size: 26px;
@@ -579,13 +706,11 @@
     z-index: 9999;
   }
 
-  /* playful running animation for NO button */
   .runaway {
     transition: transform 0.35s cubic-bezier(.17,.84,.44,1), left 0.35s, top 0.35s;
     position: relative;
   }
 
-  /* small bounce on spawn */
   .spawn-bounce {
     animation: spawnBounce 420ms cubic-bezier(.34,.8,.4,1);
   }
@@ -593,6 +718,42 @@
     0% { transform: scale(0.6); opacity: 0; }
     60% { transform: scale(1.08); opacity: 1; }
     100% { transform: scale(1); }
+  }
+
+  /* Heart blast animation for button clicks */
+  .heart-blast {
+    position: absolute;
+    font-size: 20px;
+    pointer-events: none;
+    animation: heartBurst 1.5s ease-out forwards;
+    z-index: 9999;
+  }
+  @keyframes heartBurst{
+    0%{
+      transform:translate(0, 0) scale(0) rotate(0deg);
+      opacity:1;
+    }
+    100%{
+      transform:translate(var(--tx, 100px), var(--ty, -100px)) scale(1) rotate(720deg);
+      opacity:0;
+    }
+  }
+
+  /* Performance optimizations */
+  .performance-optimized {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Lazy loading */
+  .lazy-load {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .lazy-load.loaded {
+    opacity: 1;
   }
 </style>
 </head>
@@ -618,7 +779,8 @@
 <!-- STEP 1 -->
 <section class="screen active" id="step1">
   <div class="card">
-    <p class="caption">I've been waiting for this moment for a long time yk.</p>
+    <h1 class="title">💖</h1>
+    <p class="caption">I was holding back my feelings for a very long time and it just exploded right now</p>
     <div class="btn-row">
       <button class="btn btn-primary" onclick="goToStep2()">Oh really?</button>
     </div>
@@ -640,8 +802,8 @@
 
     <div id="yesPanel" style="margin-top:28px; display:none;">
       <div class="img-grid">
-        <img src="https://i.pinimg.com/736x/79/36/73/7936736c91c37ae0306e31b40d43cb29.jpg" alt="happy 1">
-        <img src="https://i.pinimg.com/736x/75/d4/61/75d4618fdbf96b41dc4bcdfe9d6af04d.jpg" alt="happy 2">
+        <img src="https://i.pinimg.com/736x/79/36/73/7936736c91c37ae0306e31b40d43cb29.jpg" alt="happy 1" loading="lazy" class="lazy-load">
+        <img src="https://i.pinimg.com/736x/75/d4/61/75d4618fdbf96b41dc4bcdfe9d6af04d.jpg" alt="happy 2" loading="lazy" class="lazy-load">
       </div>
       <div class="btn-row" style="margin-top:26px;">
         <button class="btn btn-primary" onclick="goToStep3()">Let me ask you for one last time 💌</button>
@@ -652,7 +814,6 @@
 
 <!-- STEP 3 - VALENTINE QUESTION -->
 <section class="screen" id="step3-valentine">
-  <!-- Strawberries for Step 3 -->
   <div class="float-container" id="strawberries3"></div>
 
   <div class="card">
@@ -670,9 +831,66 @@
 <!-- STEP 4 - TRANSITION PAGE -->
 <section class="screen" id="step4-transition">
   <div class="card">
-    <div class="btn-row">
-      <button class="btn btn-primary" onclick="goToStep5()">Here's all I wanna say cupcake 🧁💌</button>
+    <div class="step4-container">
+      <!-- Conversation Screenshot -->
+      <div class="chat-screenshot">
+        <div class="message-container">
+          <div class="message-sender received">You</div>
+          <div class="message received">
+            Would you give up on me?
+          </div>
+          
+          <div class="message-sender sent">Me</div>
+          <div class="message sent">
+            Never
+          </div>
+          
+          <div class="message-sender received">You</div>
+          <div class="message received">
+            Will you unlove me?
+          </div>
+          
+          <div class="message-sender sent">Me</div>
+          <div class="message sent">
+            I can never unlove you 🍓💌
+          </div>
+          
+          <div class="message-sender received">You</div>
+          <div class="message received">
+            Would you ever consider cheating on me?
+          </div>
+          
+          <div class="message-sender sent">Me</div>
+          <div class="message sent">
+            That would never happen because I've been crushing on you for months 😭🥀
+          </div>
+          
+          <div class="message-sender received">You</div>
+          <div class="message received">
+            What if you find someone better than me?
+          </div>
+          
+          <div class="message-sender sent">Me</div>
+          <div class="message sent">
+            Nobody can replace you cupcakeeee, you're the missing piece of my life tbh
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="step4-scroll-indicator">
+        <span>Scroll down for more</span>
+        <span class="step4-arrow">⬇</span>
+      </div>
+
+      <!-- Button with "Click here" arrow -->
+      <div class="step4-button-container">
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="goToStep5()">Here's all I wanna say cupcake 🧁💌</button>
+        </div>
+      </div>
     </div>
+
     <button class="btn btn-secondary" onclick="goBackToStep3()" style="margin-top:16px; width:100%; max-width:120px;">← Back</button>
   </div>
 </section>
@@ -711,7 +929,7 @@
     <p>There is something I gotta tell you for a long time – a very long time tbh – I knew you since <span class="highlight">June 3 11:24 PM</span> and I honestly have no idea on how you came into my life ( yes yes I remember every single detail about you because am madly in love cupcakeeee ),… I think I really like you, not just as a best friend... but more than that tbh.</p>
 
     <div style="text-align:center; margin:24px 0;">
-      <img loading="lazy" src="https://i.pinimg.com/736x/cd/39/07/cd3907f05e0986b47746ff2867d5bb56.jpg" alt="Romantic moment" style="max-width:450px; width:100%; border-radius:14px; border:1px solid #000;" />
+      <img loading="lazy" src="https://i.pinimg.com/736x/cd/39/07/cd3907f05e0986b47746ff2867d5bb56.jpg" alt="Romantic moment" style="max-width:450px; width:100%; border-radius:14px; border:1px solid #000;" class="lazy-load" />
     </div>
 
     <p>When I first texted you I lowkey hated you and thought you were the last person that I would fall in love with but idk something ... really something changed – we started giving out nicknames – and I loved every moment of it tbh I never expected that me at this time would be writing a love letter rn especially when I promised myself not to fall in love with anyone in my whole damn life – something inside me tells me louder that you are the one and you are the only one for me in this lifetime ––</p>
@@ -719,13 +937,13 @@
     <p><span class="highlight">Every single day when I text you I feel good – my stress ? GONE. and mental health was improved to an amazing extent</span> Istg I never felt like this in my whole lifetime never when I texted others – not a single bit.</p>
 
     <div style="text-align:center; margin:24px 0;">
-      <img loading="lazy" src="https://i.pinimg.com/736x/b6/fa/4d/b6fa4d8ab4463e1440f8448fdf09d928.jpg" alt="Romantic moment 2" style="max-width:450px; width:100%; border-radius:14px; border:1px solid #000;" />
+      <img loading="lazy" src="https://i.pinimg.com/736x/b6/fa/4d/b6fa4d8ab4463e1440f8448bdf09d928.jpg" alt="Romantic moment 2" style="max-width:450px; width:100%; border-radius:14px; border:1px solid #000;" class="lazy-load" />
     </div>
 
     <p>Whenever you call me by cuteee nicknames like bbg and bitch I only got more happier – Your jokes , your amazing personality that no one can imitate is what actually made me fall in love with you and you better stay like this -</p>
 
     <div style="text-align:center; margin:24px 0;">
-      <img loading="lazy" src="https://i.pinimg.com/1200x/d2/17/99/d21799b12411c212d80e5faf02d85f79.jpg" alt="Romantic moment 3" style="max-width:450px; width:100%; border-radius:14px; border:1px solid #000;" />
+      <img loading="lazy" src="https://i.pinimg.com/1200x/d2/17/99/d21799b12411c212d80e5faf02d85f79.jpg" alt="Romantic moment 3" style="max-width:450px; width:100%; border-radius:14px; border:1px solid #000;" class="lazy-load" />
     </div>
 
     <p><span class="highlight">From the moment I get out of my bed you are the only thing in my mind...</span> I think "what would be she doing at the moment and where would she be" – "Is she well or not", "Is she sad", "Is she happy", "Does she like me back??" All these questions have been running on my mind – EVERYDAY and the times when you aren't online?? I missed you so much cupcakeee and the times when we were busy on our exams <span class="highlight">I always wished we spoke more, more and moreeee</span> and since you leave without texting me – I still remember you asking me to find a gf for myself but things took a turn and the one you asked me to find is actually you –</p>
@@ -739,7 +957,7 @@
     <p>You're staying with me no matter what... <span class="highlight">You're mineee</span> and forever be my sweet cupcake , muffin or my baby lmao</p>
 
     <div style="text-align:center; margin:24px 0;">
-      <img loading="lazy" src="https://i.pinimg.com/736x/39/69/d5/3969d5f3d547949466d5fc7c685dcbdf.jpg" alt="Lovely together" style="max-width:450px; width:100%; border-radius:14px; border:1px solid #000;" />
+      <img loading="lazy" src="https://i.pinimg.com/736x/39/69/d5/3969d5f3d547949466d5fc7c685dcbdf.jpg" alt="Lovely together" style="max-width:450px; width:100%; border-radius:14px; border:1px solid #000;" class="lazy-load" />
     </div>
 
     <p class="final-question">TELL ME – TELL ME ONE LAST TIME – Can I be your boyfriend forever??? &lt;3</p>
@@ -753,17 +971,73 @@
   </main>
 </div>
 
-<!-- Added decorative layers -->
 <div class="vignette" aria-hidden="true"></div>
 <div class="particles" id="particlesLayer" aria-hidden="true"></div>
 
-<!-- SOUND EFFECTS (ADDED) -->
+<!-- Sound Effects -->
 <audio id="sfxPop" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_9a3f7b5d7d.mp3?filename=pop-6345.mp3" preload="auto"></audio>
 <audio id="sfxSpark" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_fdf9e5fdc4.mp3?filename=pop-94319.mp3" preload="auto"></audio>
 <audio id="sfxTiny" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_0e8c6b7e2e.mp3?filename=tiny-pop-5854.mp3" preload="auto"></audio>
+<audio id="step1Sound" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkles-300.mp3" preload="auto"></audio>
+<audio id="step2Sound" src="https://assets.mixkit.co/sfx/preview/mixkit-cute-toy-whistle-401.mp3" preload="auto"></audio>
+<audio id="step4Sound" src="https://assets.mixkit.co/sfx/preview/mixkit-whoosh-541.mp3" preload="auto"></audio>
+<audio id="heartBeatSound" src="https://assets.mixkit.co/sfx/preview/mixkit-heartbeat-soft-757.mp3" preload="auto"></audio>
+<audio id="pageTurnSound" src="https://assets.mixkit.co/sfx/preview/mixkit-page-turn-swipe-1462.mp3" preload="auto"></audio>
 
 <script>
+// Sound effect functions
+function playStep1Sound() {
+  try {
+    const sound = document.getElementById('step1Sound');
+    sound.currentTime = 0;
+    sound.volume = 0.4;
+    sound.play().catch(e => console.log("Sound play prevented"));
+  } catch (e) {}
+}
+
+function playStep2Sound() {
+  try {
+    const sound = document.getElementById('step2Sound');
+    sound.currentTime = 0;
+    sound.volume = 0.5;
+    sound.play().catch(e => console.log("Sound play prevented"));
+  } catch (e) {}
+}
+
+function playStep4Sound() {
+  try {
+    const sound = document.getElementById('step4Sound');
+    sound.currentTime = 0;
+    sound.volume = 0.5;
+    sound.play().catch(e => console.log("Sound play prevented"));
+  } catch (e) {}
+}
+
+function playPageTurnSound() {
+  try {
+    const sound = document.getElementById('pageTurnSound');
+    sound.currentTime = 0;
+    sound.volume = 0.3;
+    sound.play().catch(e => console.log("Sound play prevented"));
+  } catch (e) {}
+}
+
+function playHeartBeatSound() {
+  try {
+    const sound = document.getElementById('heartBeatSound');
+    sound.currentTime = 0;
+    sound.volume = 0.2;
+    sound.play().catch(e => console.log("Sound play prevented"));
+  } catch (e) {}
+}
+
+// Play step 1 sound on initial load (after a delay)
+setTimeout(() => {
+  playStep1Sound();
+}, 500);
+
 function goToStep2() {
+  playStep2Sound();
   document.getElementById('step1').classList.remove('active');
   document.getElementById('step2').classList.add('active');
   resetScrollIndicator();
@@ -772,31 +1046,42 @@ function goToStep2() {
 function showNoPanel() {
   document.getElementById('noPanel').style.display = 'block';
   document.getElementById('yesPanel').style.display = 'none';
+  playPageTurnSound();
 }
 
 function showYesPanel() {
   document.getElementById('yesPanel').style.display = 'block';
   document.getElementById('noPanel').style.display = 'none';
+  playHeartBeatSound();
 }
 
 function goToStep3() {
   document.getElementById('step2').classList.remove('active');
   document.getElementById('step3-valentine').classList.add('active');
-  spawnStrawberries('strawberries3'); // Start strawberries for step 3
+  spawnStrawberries('strawberries3');
   resetScrollIndicator();
 }
 
 function goToStep4() {
+  playStep4Sound();
   document.getElementById('step3-valentine').classList.remove('active');
   document.getElementById('step4-transition').classList.add('active');
   resetScrollIndicator();
+  
+  // Animate the chat screenshot
+  setTimeout(() => {
+    const chat = document.querySelector('.chat-screenshot');
+    if (chat) {
+      chat.style.animation = 'glowBorder 2s ease-in-out infinite alternate, slideUp 0.6s ease-out';
+    }
+  }, 300);
 }
 
 function goToStep5() {
   document.getElementById('step4-transition').classList.remove('active');
   document.getElementById('step5-wrapper').classList.add('active');
   startTimer();
-  spawnStrawberries('strawberries5'); // Start strawberries for step 5
+  spawnStrawberries('strawberries5');
   resetScrollIndicator();
 }
 
@@ -817,7 +1102,7 @@ function goBackToStep2() {
 function goBackToStep3() {
   document.getElementById('step4-transition').classList.remove('active');
   document.getElementById('step3-valentine').classList.add('active');
-  spawnStrawberries('strawberries3'); // Restart strawberries when going back
+  spawnStrawberries('strawberries3');
   window.scrollTo(0,0);
   resetScrollIndicator();
 }
@@ -837,7 +1122,6 @@ function closeMusicModal() {
   document.getElementById('musicModal').classList.remove('active');
 }
 
-// Timer Logic
 const startDate = new Date('2025-06-03T23:24:00').getTime();
 
 function updateTimer() {
@@ -874,33 +1158,34 @@ function spawnStrawberries(containerId) {
   }
   
   spawnOne();
-  // Check if interval already exists to avoid double spawning
   if (!container.dataset.interval) {
      const intervalId = setInterval(spawnOne, 1200);
      container.dataset.interval = intervalId;
   }
 }
 
+// Updated final question click handler
 const finalQuestion = document.querySelector('.final-question');
 const heartsContainer = document.getElementById('hearts');
 
 if (finalQuestion && heartsContainer) {
   finalQuestion.addEventListener('click', function() {
-    this.classList.add('clicked');
-    
+    // Create heart blast animation
     for(let i = 0; i < 20; i++) {
       const heart = document.createElement('div');
-      heart.className = 'heart';
+      heart.className = 'heart-blast';
       heart.innerHTML = ['💖','💕','💗','💓','❤️','💝'][Math.floor(Math.random()*6)];
       heart.style.left = '50%';
       heart.style.top = '50%';
+      heart.style.setProperty('--tx', `${(Math.random() - 0.5) * 200}px`);
+      heart.style.setProperty('--ty', `${(Math.random() - 0.5) * 200}px`);
       heart.style.animationDelay = (i * 0.05) + 's';
       heart.style.animationDuration = (0.8 + Math.random() * 0.7) + 's';
-      heartsContainer.appendChild(heart);
+      document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 2000);
     }
     
-    this.style.pointerEvents = 'none';
+    playSfx('sfxSpark');
   });
 }
 
@@ -919,17 +1204,41 @@ function resetScrollIndicator() {
 
 window.addEventListener('scroll', handleScroll);
 
-/* -----------------------------
-   ENHANCEMENTS (ADDED NON-DESTRUCTIVE)
-   - Particle creation
-   - Attach sound + heart explosion to YES buttons (text contains 'yes')
-   - Runaway behaviour for NO buttons (text contains 'no')
-   - Final-question sound + extra hearts
-   - Non-intrusive helpers (no original functions changed)
-   ----------------------------- */
+// Performance optimizations
+function lazyLoadImages() {
+  const lazyImages = document.querySelectorAll('.lazy-load');
+  
+  const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        img.classList.add('loaded');
+        observer.unobserve(img);
+      }
+    });
+  });
+
+  lazyImages.forEach(img => imageObserver.observe(img));
+}
+
+// Initialize on load
+window.addEventListener('DOMContentLoaded', () => {
+  lazyLoadImages();
+  
+  // Preload important images
+  const preloadImages = [
+    'https://i.pinimg.com/736x/79/36/73/7936736c91c37ae0306e31b40d43cb29.jpg',
+    'https://i.pinimg.com/736x/75/d4/61/75d4618fdbf96b41dc4bcdfe9d6af04d.jpg',
+    'https://i.pinimg.com/736x/cd/39/07/cd3907f05e0986b47746ff2867d5bb56.jpg'
+  ];
+  
+  preloadImages.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+});
 
 (function setupEnhancements() {
-  // create tiny floating particles (decorative)
   const particlesContainer = document.getElementById('particlesLayer');
   if (particlesContainer) {
     const colors = ['#ffd5e1','#ffd6f0','#fff1f2','#ffe3e3','#ffe6f0'];
@@ -946,142 +1255,84 @@ window.addEventListener('scroll', handleScroll);
     }
   }
 
-  // utility to play SFX safely
   function playSfx(id) {
     try {
       const a = document.getElementById(id);
       if (!a) return;
       a.currentTime = 0;
-      // some browsers block autoplay until user interacts; this will usually be fine after the first click
       const p = a.play();
-      if (p && p.catch) p.catch(()=>{/* ignore autoplay block */});
-    } catch (e) { /* ignore */ }
+      if (p && p.catch) p.catch(()=>{});
+    } catch (e) {}
   }
 
-  // create explosion at x,y in viewport
   function explosionAt(x, y, count = 18) {
     for (let i = 0; i < count; i++) {
       const h = document.createElement('div');
-      h.className = 'enh-heart spawn-bounce';
+      h.className = 'heart-blast';
       h.innerText = ['💖','💕','💗','💓','❤️','💝'][Math.floor(Math.random()*6)];
       h.style.left = (x) + 'px';
       h.style.top = (y) + 'px';
+      h.style.setProperty('--tx', `${(Math.random() - 0.5) * 200}px`);
+      h.style.setProperty('--ty', `${(Math.random() - 0.5) * 200}px`);
       document.body.appendChild(h);
 
-      // compute random trajectory
-      const angle = Math.random() * Math.PI * 2;
-      const distance = 90 + Math.random() * 160;
-      const dx = Math.cos(angle) * distance;
-      const dy = Math.sin(angle) * distance - 20 - Math.random()*40;
-
-      // animate using transform
-      requestAnimationFrame(() => {
-        h.style.transition = `transform ${900 + Math.random()*700}ms cubic-bezier(.18,.8,.4,1), opacity 900ms`;
-        h.style.transform = `translate(${dx}px, ${dy}px) scale(${0.9 + Math.random()*0.6}) rotate(${Math.random()*520}deg)`;
-        h.style.opacity = '0';
-      });
-
-      // cleanup
       setTimeout(()=> h.remove(), 1800 + Math.random()*800);
     }
   }
 
-  // find all buttons and attach behaviour based on label text
+  // Add heart blast animation to all primary buttons
   const allButtons = Array.from(document.querySelectorAll('button'));
 
   allButtons.forEach(btn => {
     const text = (btn.innerText || '').trim().toLowerCase();
 
-    // YES-like buttons -> heart explosion + sound
-    if (/^yes\b|yes$|yes |💖|💗|be my girlfriend|let me ask/i.test(text) || /yes/i.test(text)) {
-      // add aria role hint for screen readers
+    if (/^yes\b|yes$|yes |💖|💗|be my girlfriend|let me ask|oh really|here's all i wanna say/i.test(text) || /yes/i.test(text) || btn.classList.contains('btn-primary')) {
       btn.setAttribute('data-enhanced','yes-sfx');
       btn.addEventListener('click', (e) => {
-        try { playSfx('sfxPop'); } catch(e){/*ignore*/}
-
-        // compute central point near the button
+        try { playSfx('sfxPop'); } catch(e){}
         const rect = btn.getBoundingClientRect();
         const cx = rect.left + rect.width/2;
         const cy = rect.top + rect.height/2;
-        explosionAt(cx, cy, 20);
+        explosionAt(cx, cy, 12);
       }, {passive:true});
     }
 
-    // NO-like buttons -> run away on hover / focus (goofy)
     if (/^no\b|^no$|^no |please say yes|please say yes!|no!/i.test(text) || /^no$/i.test(text) || btn.id === 'noBtn3' || (btn.classList.contains('btn-secondary') && /no/i.test(text))) {
-      // mark runaway
       btn.classList.add('runaway');
       btn.setAttribute('data-enhanced','runaway');
-
-      // ensure absolute positioning for smooth move
-      // only set style.left/top if not already positioned absolutely
       const orig = window.getComputedStyle(btn).position;
       if (orig !== 'absolute' && orig !== 'fixed') {
-        // wrap with a small spacer to keep layout stable
         btn.style.position = 'relative';
       }
 
-      // on mouseover (or focus via keyboard), jump to a new position
       const moveAway = (ev) => {
-        // small sound
         playSfx('sfxTiny');
 
-        // compute new random position within viewport (avoid offscreen)
-        const pad = 24;
-        const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-        const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-
-        // choose random x,y but relative to button's offset parent
         const parent = btn.offsetParent || document.body;
         const parentRect = parent.getBoundingClientRect();
 
-        // compute allowed left/top within parent
         const maxLeft = Math.max(12, parentRect.width - btn.offsetWidth - 12);
         const maxTop = Math.max(12, parentRect.height - btn.offsetHeight - 12);
 
-        // random positions
         const nx = Math.floor(Math.random() * maxLeft);
         const ny = Math.floor(Math.random() * maxTop);
 
-        // apply transform based translation for smoothness
         btn.style.transition = 'transform 0.42s cubic-bezier(.17,.84,.44,1)';
         btn.style.transform = `translate(${nx - (btn.offsetLeft)}px, ${ny - (btn.offsetTop)}px)`;
 
-        // tiny pop of hearts where it moves from
         const rect = btn.getBoundingClientRect();
         explosionAt(rect.left + rect.width/2, rect.top + rect.height/2, 6);
       };
 
-      // attach both mouseover and focus events
       btn.addEventListener('mouseover', moveAway, {passive:true});
       btn.addEventListener('focus', moveAway, {passive:true});
-      // also on touchstart for mobile
       btn.addEventListener('touchstart', (ev) => {
         ev.preventDefault();
         moveAway(ev);
       }, {passive:false});
     }
   });
-
-  // extra: enhance final-question click to play sound (in addition to existing hearts)
-  if (finalQuestion) {
-    finalQuestion.addEventListener('click', () => {
-      playSfx('sfxSpark');
-      // small extra micro-explosion near center
-      const rect = finalQuestion.getBoundingClientRect();
-      explosionAt(rect.left + rect.width/2, rect.top + rect.height/2, 12);
-    });
-  }
-
-  // prevent duplicate long-running intervals for strawberries (safe-guard)
-  ['strawberries','strawberries3','strawberries5'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el && el.dataset.interval && !isNaN(Number(el.dataset.interval))) {
-      // already fine
-    }
-  });
-
-})(); // end setupEnhancements
+})();
 </script>
 
 </body>
