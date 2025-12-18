@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>💖 For My Cupcake - A Love Letter</title>
+<title>💌🍓</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,8 +16,9 @@
     --theme-color: #fb2943;
     --text-color:#3b0a1e;
     --card-bg: rgba(255,255,255,0.08);
-    --highlight-bg:#fb2943;
-    --highlight-text:#fff;
+    --highlight-bg: rgba(255, 35, 35, 0.3);
+    --highlight-text: #2b2321;
+    --marker-color: #ff49bc;
   }
 
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -26,13 +27,16 @@
     height:100%;
     margin:0;
     padding:0;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
   }
 
   body{
     font-family:'Libre Baskerville', serif;
-    background:url('https://i.pinimg.com/736x/fe/51/a6/fe51a62a830a96529148fdb785fb2770.jpg') center/cover no-repeat fixed;
+    background:url('https://i.pinimg.com/1200x/99/14/b2/9914b2c433da3c1c38dbb14f8da9c6b5.jpg') center/cover no-repeat fixed;
     color:var(--text-main);
     min-height:100vh;
+    touch-action: manipulation;
   }
 
   .screen{
@@ -135,6 +139,7 @@
     min-width:110px;
     font-family:inherit;
     font-weight:600;
+    touch-action: manipulation;
   }
   .btn-primary{
     background:var(--theme-color);
@@ -150,22 +155,6 @@
   }
   .btn:active{
     transform:translateY(0);
-  }
-
-  /* Updated Image Grid for side-by-side layout */
-  .img-grid{
-    display:flex;
-    flex-direction:row;
-    gap:18px;
-    align-items:center;
-    justify-content:center;
-    flex-wrap:wrap;
-  }
-  .img-grid img{
-    max-width:260px;
-    width:100%;
-    border-radius:18px;
-    box-shadow:0 10px 28px rgba(0,0,0,0.18);
   }
 
   .back-button-top{
@@ -218,10 +207,11 @@
   .timer-section {
     width: 100%;
     padding: 80px 20px;
-    background: url('https://i.pinimg.com/1200x/31/1b/5b/311b5bf425141ac9b45d5bb983acbcfc.jpg') center/cover no-repeat fixed;
+    background: url('https://i.pinimg.com/1200x/e6/db/be/e6dbbeb5076149c0123db245e71ce169.jpg') center/cover no-repeat;
     margin-bottom: 40px;
     position: relative;
     z-index: 2;
+    border-radius: 18px;
   }
 
   .timer-wrapper {
@@ -294,30 +284,29 @@
   }
 
   p{margin:0 0 24px 0; font-size:22px;}
+  
   .highlight{
-    background: var(--highlight-bg);
-    color:var(--highlight-text);
-    padding:6px 12px;
-    border-radius:12px;
-    font-weight:700;
-    display:inline-block;
-    text-shadow: 
-      0 0 8px rgba(251,41,67,0.6),
-      1px 1px 2px rgba(0,0,0,0.3),
-      -1px -1px 2px rgba(255,255,255,0.2);
-    position:relative;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 50%,
+      rgba(255, 73, 188, 0.5) 50%
+    );
+    background-size: 100% 110%;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    color: var(--highlight-text);
+    padding: 2px 8px 2px 8px;
+    border-radius: 2px;
+    font-weight: 700;
+    display: inline;
+    position: relative;
+    transition: background-size 0.3s ease;
   }
-  .highlight::before{
-    content:'';
-    position:absolute;
-    top:-2px; left:-2px; right:-2px; bottom:-2px;
-    background: linear-gradient(45deg, #ff4757, #ff3838, #fb2943, #ff6b7a);
-    border-radius:14px;
-    z-index:-1;
-    opacity:0.8;
+  
+  .highlight:hover {
+    background-size: 100% 100%;
   }
 
-  /* Updated final question */
   .final-question{
     font-size:30px;
     text-align:center;
@@ -411,13 +400,33 @@
     height: 60px;
   }
 
+  .gif-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .gif-container .tenor-gif-embed {
+    max-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   #step4-transition {
-    background: url('https://i.pinimg.com/736x/2c/0c/47/2c0c4763a7f91ae4e3e9b2142e2b31d3.jpg') center/cover no-repeat fixed !important;
+    background: url('https://i.pinimg.com/736x/83/74/b4/8374b43d47ff0d190b2e99ddf88223ab.jpg') center/cover no-repeat fixed !important;
   }
 
   #step4-transition .card {
     animation: slideUp 0.6s ease-out;
-    background: rgba(255,255,255,0.9);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   }
 
   @keyframes slideUp {
@@ -444,9 +453,8 @@
     background-color: #28a745 !important;
   }
 
-  /* Conversation screenshot styles */
   .chat-screenshot {
-    background: white;
+    background: url('https://i.pinimg.com/736x/f9/a6/f4/f9a6f4577be6df03821f25540d44ae03.jpg') center/cover no-repeat;
     border-radius: 16px;
     padding: 20px;
     margin: 30px auto;
@@ -456,6 +464,7 @@
     animation: glowBorder 2s ease-in-out infinite alternate;
     box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
     overflow: hidden;
+    backdrop-filter: blur(5px);
   }
 
   @keyframes glowBorder {
@@ -487,20 +496,23 @@
     position: relative;
     font-size: 14px;
     line-height: 1.4;
+    backdrop-filter: blur(2px);
   }
 
   .message.sent {
     align-self: flex-end;
-    background: linear-gradient(135deg, #ff2226, #ff2226);
+    background: linear-gradient(135deg, rgba(255, 34, 38, 0.8), rgba(255, 34, 38, 0.8));
     color: white;
     border-bottom-right-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   .message.received {
     align-self: flex-start;
-    background: #f0f0f0;
+    background: rgba(240, 240, 240, 0.8);
     color: #333;
     border-bottom-left-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   .message-sender {
@@ -508,6 +520,7 @@
     color: #666;
     margin-bottom: 4px;
     font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
   }
 
   .message-sender.sent {
@@ -533,7 +546,7 @@
     align-items: center;
     gap: 4px;
     padding: 8px 12px;
-    background: #f0f0f0;
+    background: rgba(240, 240, 240, 0.8);
     border-radius: 18px;
     width: fit-content;
     margin-top: 8px;
@@ -555,39 +568,11 @@
     30% { transform: translateY(-4px); }
   }
 
-  /* Step 4 specific styles */
   .step4-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
-  }
-
-  .step4-scroll-indicator {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    color: #ff2226;
-    font-size: 14px;
-    margin: 10px 0;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0% { opacity: 0.6; }
-    50% { opacity: 1; }
-    100% { opacity: 0.6; }
-  }
-
-  .step4-arrow {
-    font-size: 24px;
-    animation: bounceArrow 1.5s infinite;
-  }
-
-  @keyframes bounceArrow {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(8px); }
   }
 
   .step4-button-container {
@@ -596,30 +581,44 @@
     padding-top: 20px;
   }
 
-  .step4-button-container::before {
-    content: "Click here";
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #ff2226;
-    color: white;
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: bold;
-    white-space: nowrap;
-  }
-
   @media (max-width: 768px) {
+    .screen {
+      padding: 16px;
+    }
+    
+    .card {
+      padding: 24px 16px;
+      margin: 10px;
+    }
+    
+    .title {
+      font-size: 32px;
+    }
+    
+    .caption {
+      font-size: 16px;
+    }
+    
+    .btn {
+      padding: 12px 20px;
+      min-width: 120px;
+      font-size: 17px;
+    }
+    
+    .btn-row {
+      gap: 12px;
+      flex-direction: column;
+      align-items: center;
+    }
+    
     .timer-section {
-      padding: 60px 20px;
-      margin-bottom: 30px;
+      padding: 40px 16px;
+      margin-bottom: 20px;
     }
 
     .caption-timer {
       font-size: 20px;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
 
     .time-value {
@@ -627,35 +626,101 @@
     }
 
     .separator {
-      font-size: 42px;
+      font-size: 36px;
+      margin-bottom: 20px;
     }
 
     .timer-container {
-      gap: 12px;
+      gap: 8px;
     }
-
-    .card{padding:28px 20px;}
-    .title{font-size:30px;}
-    .container{padding:20px;}
-
-    /* Stack images on mobile */
-    .img-grid{
-      flex-direction:column;
+    
+    .container {
+      padding: 20px 16px;
+      margin: 0 10px;
     }
-
+    
+    p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    
+    .final-question {
+      font-size: 24px;
+      padding: 16px;
+    }
+    
+    .music-button {
+      font-size: 20px;
+      padding: 12px 20px;
+    }
+    
+    .modal-content {
+      padding: 20px 16px;
+      margin: 10px;
+    }
+    
     .chat-screenshot {
       margin: 20px auto;
       padding: 15px;
+      max-width: 90%;
     }
-
-    .step4-button-container::before {
-      font-size: 10px;
-      padding: 3px 8px;
+    
+    .gif-container {
+      height: 150px;
     }
-
-    body, #step5-wrapper, .timer-section {
+    
+    body, #step5-wrapper, .timer-section, #step3-valentine, #step4-transition {
       background-attachment: scroll !important;
       background-position: center top !important;
+    }
+    
+    .back-button-top {
+      top: 10px;
+      left: 10px;
+    }
+    
+    .back-button-top .btn {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .title {
+      font-size: 28px;
+    }
+    
+    .time-value {
+      font-size: 36px;
+    }
+    
+    .separator {
+      font-size: 28px;
+    }
+    
+    .container {
+      padding: 16px 12px;
+    }
+    
+    p {
+      font-size: 17px;
+    }
+    
+    .final-question {
+      font-size: 22px;
+    }
+    
+    .music-button {
+      font-size: 18px;
+      padding: 10px 16px;
+    }
+    
+    .modal-content {
+      padding: 16px 12px;
+    }
+    
+    .gif-container {
+      height: 60px;
     }
   }
 
@@ -696,16 +761,6 @@
     backdrop-filter: blur(18px) saturate(1.12);
   }
 
-  /* Enhanced heart animation for button clicks */
-  .enh-heart {
-    position: fixed;
-    font-size: 26px;
-    pointer-events: none;
-    will-change: transform, opacity;
-    text-shadow: 0 6px 18px rgba(251,41,67,0.35);
-    z-index: 9999;
-  }
-
   .runaway {
     transition: transform 0.35s cubic-bezier(.17,.84,.44,1), left 0.35s, top 0.35s;
     position: relative;
@@ -720,33 +775,12 @@
     100% { transform: scale(1); }
   }
 
-  /* Heart blast animation for button clicks */
-  .heart-blast {
-    position: absolute;
-    font-size: 20px;
-    pointer-events: none;
-    animation: heartBurst 1.5s ease-out forwards;
-    z-index: 9999;
-  }
-  @keyframes heartBurst{
-    0%{
-      transform:translate(0, 0) scale(0) rotate(0deg);
-      opacity:1;
-    }
-    100%{
-      transform:translate(var(--tx, 100px), var(--ty, -100px)) scale(1) rotate(720deg);
-      opacity:0;
-    }
-  }
-
-  /* Performance optimizations */
   .performance-optimized {
     will-change: transform, opacity;
     backface-visibility: hidden;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Lazy loading */
   .lazy-load {
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -754,6 +788,15 @@
 
   .lazy-load.loaded {
     opacity: 1;
+  }
+  
+  .no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 </style>
 </head>
@@ -776,7 +819,6 @@
   </div>
 </div>
 
-<!-- STEP 1 -->
 <section class="screen active" id="step1">
   <div class="card">
     <h1 class="title">💖</h1>
@@ -787,7 +829,6 @@
   </div>
 </section>
 
-<!-- STEP 2 -->
 <section class="screen" id="step2">
   <div class="card">
     <h1 class="title">Are you in love with me?</h1>
@@ -798,13 +839,10 @@
     <button class="btn btn-secondary" onclick="goBackToStep1()" style="margin-top:16px; width:100%; max-width:120px;">← Back</button>
 
     <div id="noPanel" style="margin-top:28px; display:none;">
+      <p>Please say yes! 🥺</p>
     </div>
 
     <div id="yesPanel" style="margin-top:28px; display:none;">
-      <div class="img-grid">
-        <img src="https://i.pinimg.com/736x/79/36/73/7936736c91c37ae0306e31b40d43cb29.jpg" alt="happy 1" loading="lazy" class="lazy-load">
-        <img src="https://i.pinimg.com/736x/75/d4/61/75d4618fdbf96b41dc4bcdfe9d6af04d.jpg" alt="happy 2" loading="lazy" class="lazy-load">
-      </div>
       <div class="btn-row" style="margin-top:26px;">
         <button class="btn btn-primary" onclick="goToStep3()">Let me ask you for one last time 💌</button>
       </div>
@@ -812,11 +850,16 @@
   </div>
 </section>
 
-<!-- STEP 3 - VALENTINE QUESTION -->
 <section class="screen" id="step3-valentine">
   <div class="float-container" id="strawberries3"></div>
 
   <div class="card">
+    <div class="gif-container">
+      <div class="tenor-gif-embed" data-postid="25422986" data-share-method="host" data-aspect-ratio="1" data-width="100%">
+        <a href="https://tenor.com/view/transparent-hearts-heart-love-love-heart-gif-25422986">Transparent Hearts Sticker</a>from <a href="https://tenor.com/search/transparent-stickers">Transparent Stickers</a>
+      </div>
+    </div>
+    
     <h1>Will you be my girlfriend? 💗</h1>
     
     <div class="btn-row" style="justify-content: center;">
@@ -828,11 +871,9 @@
   </div>
 </section>
 
-<!-- STEP 4 - TRANSITION PAGE -->
 <section class="screen" id="step4-transition">
   <div class="card">
     <div class="step4-container">
-      <!-- Conversation Screenshot -->
       <div class="chat-screenshot">
         <div class="message-container">
           <div class="message-sender received">You</div>
@@ -877,13 +918,6 @@
         </div>
       </div>
 
-      <!-- Scroll indicator -->
-      <div class="step4-scroll-indicator">
-        <span>Scroll down for more</span>
-        <span class="step4-arrow">⬇</span>
-      </div>
-
-      <!-- Button with "Click here" arrow -->
       <div class="step4-button-container">
         <div class="btn-row">
           <button class="btn btn-primary" onclick="goToStep5()">Here's all I wanna say cupcake 🧁💌</button>
@@ -895,7 +929,6 @@
   </div>
 </section>
 
-<!-- STEP 5 – LOVE LETTER -->
 <div id="step5-wrapper">
   <div class="back-button-top">
     <button class="btn btn-secondary" onclick="goBackToStep4()">← Back</button>
@@ -903,29 +936,29 @@
 
   <div class="float-container" id="strawberries5"></div>
 
-  <div class="timer-section">
-    <div class="timer-wrapper">
-      <div class="caption-timer">I found my treasure since 💌😭</div>
-      <div class="timer-container">
-        <div class="time-unit">
-          <span class="time-value" id="days">00</span>
-          <span class="time-label">Days</span>
-        </div>
-        <span class="separator">:</span>
-        <div class="time-unit">
-          <span class="time-value" id="hours">00</span>
-          <span class="time-label">Hours</span>
-        </div>
-        <span class="separator">:</span>
-        <div class="time-unit">
-          <span class="time-value" id="seconds">00</span>
-          <span class="time-label">Seconds</span>
+  <main class="container" style="margin-top: 60px;">
+    <div class="timer-section">
+      <div class="timer-wrapper">
+        <div class="caption-timer">I found my treasure since 💌😭</div>
+        <div class="timer-container">
+          <div class="time-unit">
+            <span class="time-value" id="days">00</span>
+            <span class="time-label">Days</span>
+          </div>
+          <span class="separator">:</span>
+          <div class="time-unit">
+            <span class="time-value" id="hours">00</span>
+            <span class="time-label">Hours</span>
+          </div>
+          <span class="separator">:</span>
+          <div class="time-unit">
+            <span class="time-value" id="seconds">00</span>
+            <span class="time-label">Seconds</span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <main class="container">
     <p>There is something I gotta tell you for a long time – a very long time tbh – I knew you since <span class="highlight">June 3 11:24 PM</span> and I honestly have no idea on how you came into my life ( yes yes I remember every single detail about you because am madly in love cupcakeeee ),… I think I really like you, not just as a best friend... but more than that tbh.</p>
 
     <div style="text-align:center; margin:24px 0;">
@@ -935,10 +968,6 @@
     <p>When I first texted you I lowkey hated you and thought you were the last person that I would fall in love with but idk something ... really something changed – we started giving out nicknames – and I loved every moment of it tbh I never expected that me at this time would be writing a love letter rn especially when I promised myself not to fall in love with anyone in my whole damn life – something inside me tells me louder that you are the one and you are the only one for me in this lifetime ––</p>
 
     <p><span class="highlight">Every single day when I text you I feel good – my stress ? GONE. and mental health was improved to an amazing extent</span> Istg I never felt like this in my whole lifetime never when I texted others – not a single bit.</p>
-
-    <div style="text-align:center; margin:24px 0;">
-      <img loading="lazy" src="https://i.pinimg.com/736x/b6/fa/4d/b6fa4d8ab4463e1440f8448bdf09d928.jpg" alt="Romantic moment 2" style="max-width:450px; width:100%; border-radius:14px; border:1px solid #000;" class="lazy-load" />
-    </div>
 
     <p>Whenever you call me by cuteee nicknames like bbg and bitch I only got more happier – Your jokes , your amazing personality that no one can imitate is what actually made me fall in love with you and you better stay like this -</p>
 
@@ -974,7 +1003,6 @@
 <div class="vignette" aria-hidden="true"></div>
 <div class="particles" id="particlesLayer" aria-hidden="true"></div>
 
-<!-- Sound Effects -->
 <audio id="sfxPop" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_9a3f7b5d7d.mp3?filename=pop-6345.mp3" preload="auto"></audio>
 <audio id="sfxSpark" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_fdf9e5fdc4.mp3?filename=pop-94319.mp3" preload="auto"></audio>
 <audio id="sfxTiny" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_0e8c6b7e2e.mp3?filename=tiny-pop-5854.mp3" preload="auto"></audio>
@@ -984,8 +1012,9 @@
 <audio id="heartBeatSound" src="https://assets.mixkit.co/sfx/preview/mixkit-heartbeat-soft-757.mp3" preload="auto"></audio>
 <audio id="pageTurnSound" src="https://assets.mixkit.co/sfx/preview/mixkit-page-turn-swipe-1462.mp3" preload="auto"></audio>
 
+<script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+
 <script>
-// Sound effect functions
 function playStep1Sound() {
   try {
     const sound = document.getElementById('step1Sound');
@@ -1031,7 +1060,6 @@ function playHeartBeatSound() {
   } catch (e) {}
 }
 
-// Play step 1 sound on initial load (after a delay)
 setTimeout(() => {
   playStep1Sound();
 }, 500);
@@ -1068,7 +1096,6 @@ function goToStep4() {
   document.getElementById('step4-transition').classList.add('active');
   resetScrollIndicator();
   
-  // Animate the chat screenshot
   setTimeout(() => {
     const chat = document.querySelector('.chat-screenshot');
     if (chat) {
@@ -1078,11 +1105,19 @@ function goToStep4() {
 }
 
 function goToStep5() {
+  window.scrollTo(0, 0);
   document.getElementById('step4-transition').classList.remove('active');
   document.getElementById('step5-wrapper').classList.add('active');
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
   startTimer();
   spawnStrawberries('strawberries5');
   resetScrollIndicator();
+  setTimeout(() => {
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }, 50);
 }
 
 function goBackToStep1() {
@@ -1164,28 +1199,15 @@ function spawnStrawberries(containerId) {
   }
 }
 
-// Updated final question click handler
 const finalQuestion = document.querySelector('.final-question');
 const heartsContainer = document.getElementById('hearts');
 
 if (finalQuestion && heartsContainer) {
   finalQuestion.addEventListener('click', function() {
-    // Create heart blast animation
-    for(let i = 0; i < 20; i++) {
-      const heart = document.createElement('div');
-      heart.className = 'heart-blast';
-      heart.innerHTML = ['💖','💕','💗','💓','❤️','💝'][Math.floor(Math.random()*6)];
-      heart.style.left = '50%';
-      heart.style.top = '50%';
-      heart.style.setProperty('--tx', `${(Math.random() - 0.5) * 200}px`);
-      heart.style.setProperty('--ty', `${(Math.random() - 0.5) * 200}px`);
-      heart.style.animationDelay = (i * 0.05) + 's';
-      heart.style.animationDuration = (0.8 + Math.random() * 0.7) + 's';
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 2000);
-    }
-    
-    playSfx('sfxSpark');
+    this.style.transform = 'scale(1.05)';
+    setTimeout(() => {
+      this.style.transform = 'scale(1)';
+    }, 200);
   });
 }
 
@@ -1204,7 +1226,6 @@ function resetScrollIndicator() {
 
 window.addEventListener('scroll', handleScroll);
 
-// Performance optimizations
 function lazyLoadImages() {
   const lazyImages = document.querySelectorAll('.lazy-load');
   
@@ -1221,20 +1242,11 @@ function lazyLoadImages() {
   lazyImages.forEach(img => imageObserver.observe(img));
 }
 
-// Initialize on load
 window.addEventListener('DOMContentLoaded', () => {
   lazyLoadImages();
   
-  // Preload important images
-  const preloadImages = [
-    'https://i.pinimg.com/736x/79/36/73/7936736c91c37ae0306e31b40d43cb29.jpg',
-    'https://i.pinimg.com/736x/75/d4/61/75d4618fdbf96b41dc4bcdfe9d6af04d.jpg',
-    'https://i.pinimg.com/736x/cd/39/07/cd3907f05e0986b47746ff2867d5bb56.jpg'
-  ];
-  
-  preloadImages.forEach(src => {
-    const img = new Image();
-    img.src = src;
+  document.querySelectorAll('button, .final-question').forEach(el => {
+    el.classList.add('no-select');
   });
 });
 
@@ -1265,22 +1277,6 @@ window.addEventListener('DOMContentLoaded', () => {
     } catch (e) {}
   }
 
-  function explosionAt(x, y, count = 18) {
-    for (let i = 0; i < count; i++) {
-      const h = document.createElement('div');
-      h.className = 'heart-blast';
-      h.innerText = ['💖','💕','💗','💓','❤️','💝'][Math.floor(Math.random()*6)];
-      h.style.left = (x) + 'px';
-      h.style.top = (y) + 'px';
-      h.style.setProperty('--tx', `${(Math.random() - 0.5) * 200}px`);
-      h.style.setProperty('--ty', `${(Math.random() - 0.5) * 200}px`);
-      document.body.appendChild(h);
-
-      setTimeout(()=> h.remove(), 1800 + Math.random()*800);
-    }
-  }
-
-  // Add heart blast animation to all primary buttons
   const allButtons = Array.from(document.querySelectorAll('button'));
 
   allButtons.forEach(btn => {
@@ -1290,10 +1286,6 @@ window.addEventListener('DOMContentLoaded', () => {
       btn.setAttribute('data-enhanced','yes-sfx');
       btn.addEventListener('click', (e) => {
         try { playSfx('sfxPop'); } catch(e){}
-        const rect = btn.getBoundingClientRect();
-        const cx = rect.left + rect.width/2;
-        const cy = rect.top + rect.height/2;
-        explosionAt(cx, cy, 12);
       }, {passive:true});
     }
 
@@ -1319,9 +1311,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
         btn.style.transition = 'transform 0.42s cubic-bezier(.17,.84,.44,1)';
         btn.style.transform = `translate(${nx - (btn.offsetLeft)}px, ${ny - (btn.offsetTop)}px)`;
-
-        const rect = btn.getBoundingClientRect();
-        explosionAt(rect.left + rect.width/2, rect.top + rect.height/2, 6);
       };
 
       btn.addEventListener('mouseover', moveAway, {passive:true});
