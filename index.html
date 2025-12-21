@@ -475,9 +475,10 @@
     width: 100%;
     max-width: 100%;
     height: auto;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
     will-change: transform;
+    background: transparent;
   }
 
   .step4-container {
@@ -492,6 +493,16 @@
     margin-top: 12px;
     padding-top: 12px;
     width: 100%;
+  }
+
+  .pinterest-image {
+    max-width: 280px;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid #000;
+    margin: 12px auto;
+    display: block;
   }
 
   .vignette {
@@ -645,6 +656,10 @@
     .gif-container {
       height: 180px;
     }
+
+    .pinterest-image {
+      max-width: 320px;
+    }
   }
 
   /* Desktop (min 1024px) */
@@ -709,6 +724,10 @@
       padding: 36px 24px;
       font-size: 20px;
       line-height: 1.75;
+    }
+
+    .pinterest-image {
+      max-width: 380px;
     }
   }
 </style>
@@ -786,7 +805,7 @@
 <section class="screen" id="step4-transition">
   <div class="card">
     <div class="step4-container">
-      <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/7329b7b0-f5ea-460f-b2c4-7629929465e8" alt="She is amazing" class="step4-image" />
+      <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwwUAxMTAxMTAxMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTH/2wBDAQICAgMDAwYDAwYMCAcIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDH/wAARCACoAKgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWm5ybnJ2eoqOkpaanqKmqsrO0tba2uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8fLz9PX2+Pn6/8QAHwEAAwEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlbaWmJmaoqOkpaanqKmqsrO0tba2uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb4+fr/2gAMAwEAAhEDEQA/APn+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//Z" alt="Anime girl character" class="step4-image" />
 
       <div class="step4-button-container">
         <div class="btn-row">
@@ -831,9 +850,7 @@
 
     <p class="scroll-reveal-paragraph">There is something I gotta tell you for a long time – a very long time tbh – I knew you since <span class="highlight">June 3 11:24 PM</span> and I honestly have no idea on how you came into my life ( yes yes I remember every single detail about you because am madly in love cupcakeeee ),… I think I really like you, not just as a best friend... but more than that tbh.</p>
 
-    <div style="text-align:center; margin:16px 0;">
-      <img loading="lazy" src="https://i.pinimg.com/736x/cd/39/07/cd3907f05e0986b47746ff2867d5bb56.jpg" alt="Romantic moment" style="max-width:100%; width:100%; height:auto; border-radius:10px; border:1px solid #000;" class="lazy-load performance-optimized" />
-    </div>
+    <img loading="lazy" src="https://i.pinimg.com/736x/cd/39/07/cd3907f05e0986b47746ff2867d5bb56.jpg" alt="Romantic moment" class="pinterest-image lazy-load performance-optimized" />
 
     <p class="scroll-reveal-paragraph">When I first texted you I lowkey hated you and thought you were the last person that I would fall in love with but idk something ... really something changed – we started giving out nicknames – and I loved every moment of it tbh I never expected that me at this time would be writing a love letter rn especially when I promised myself not to fall in love with anyone in my whole damn life – something inside me tells me louder that you are the one and you are the only one for me in this lifetime ––</p>
 
@@ -841,9 +858,7 @@
 
     <p class="scroll-reveal-paragraph">Whenever you call me by cuteee nicknames like bbg and bitch I only got more happier – Your jokes , your amazing personality that no one can imitate is what actually made me fall in love with you and you better stay like this -</p>
 
-    <div style="text-align:center; margin:16px 0;">
-      <img loading="lazy" src="https://i.pinimg.com/1200x/d2/17/99/d21799b12411c212d80e5faf02d85f79.jpg" alt="Romantic moment 2" style="max-width:100%; width:100%; height:auto; border-radius:10px; border:1px solid #000;" class="lazy-load performance-optimized" />
-    </div>
+    <img loading="lazy" src="https://i.pinimg.com/1200x/d2/17/99/d21799b12411c212d80e5faf02d85f79.jpg" alt="Romantic moment 2" class="pinterest-image lazy-load performance-optimized" />
 
     <p class="scroll-reveal-paragraph"><span class="highlight">From the moment I get out of my bed you are the only thing in my mind...</span> I think "what would be she doing at the moment and where would she be" – "Is she well or not", "Is she sad", "Is she happy", "Does she like me back??" All these questions have been running on my mind – EVERYDAY and the times when you aren't online?? I missed you so much cupcakeee and the times when we were busy on our exams <span class="highlight">I always wished we spoke more, more and moreeee</span> and since you leave without texting me – I still remember you asking me to find a gf for myself but things took a turn and the one you asked me to find is actually you –</p>
 
@@ -855,9 +870,7 @@
 
     <p class="scroll-reveal-paragraph">You're staying with me no matter what... <span class="highlight">You're mineee</span> and forever be my sweet cupcake , muffin or my baby lmao</p>
 
-    <div style="text-align:center; margin:16px 0;">
-      <img loading="lazy" src="https://i.pinimg.com/736x/39/69/d5/3969d5f3d547949466d5fc7c685dcbdf.jpg" alt="Lovely together" style="max-width:100%; width:100%; height:auto; border-radius:10px; border:1px solid #000;" class="lazy-load performance-optimized" />
-    </div>
+    <img loading="lazy" src="https://i.pinimg.com/736x/39/69/d5/3969d5f3d547949466d5fc7c685dcbdf.jpg" alt="Lovely together" class="pinterest-image lazy-load performance-optimized" />
 
     <p class="final-question">TELL ME – TELL ME ONE LAST TIME – Can I be your boyfriend forever??? &lt;3</p>
 
