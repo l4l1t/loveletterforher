@@ -37,13 +37,11 @@
 
   body{
     font-family:'Libre Baskerville', serif;
-    background:url('https://i.pinimg.com/1200x/99/14/b2/9914b2c433da3c1c38dbb14f8da9c6b5.jpg') center/cover no-repeat fixed;
+    background:url('https://i.pinimg.com/1200x/99/14/b2/9914b2c433da3c1c38dbb14f8da9c6b5.jpg') center/cover no-repeat scroll;
     background-color: #fbe9e3;
     color:var(--text-main);
     min-height:100vh;
     touch-action: manipulation;
-    background-size: cover;
-    background-attachment: scroll;
   }
 
   .screen{
@@ -174,7 +172,7 @@
 
   #step5-wrapper{
     display:none;
-    background: url('https://i.pinimg.com/736x/14/9b/1b/149b1b4d8582b9453b6685de9ab06b7e.jpg') center/cover no-repeat;
+    background: url('https://i.pinimg.com/736x/14/9b/1b/149b1b4d8582b9453b6685de9ab06b7e.jpg') center/cover no-repeat scroll;
     background-color: #ffc0cb;
     font-family: 'Crimson Text', serif;
     color:var(--text-color);
@@ -186,7 +184,6 @@
     padding:20px 12px;
     min-height:100vh;
     position:relative;
-    background-attachment: scroll;
   }
   #step5-wrapper.active{
     display:block;
@@ -227,13 +224,12 @@
   .timer-section {
     width: 100%;
     padding: 40px 12px;
-    background: url('https://i.pinimg.com/1200x/e6/db/be/e6dbbeb5076149c0123db245e71ce169.jpg') center/cover no-repeat;
+    background: url('https://i.pinimg.com/1200x/e6/db/be/e6dbbeb5076149c0123db245e71ce169.jpg') center/cover no-repeat scroll;
     background-color: #f5e6d3;
     margin-bottom: 24px;
     position: relative;
     z-index: 2;
     border-radius: 12px;
-    background-attachment: scroll;
   }
 
   .timer-wrapper {
@@ -399,9 +395,8 @@
   }
 
   #step3-valentine {
-    background: url('https://i.pinimg.com/736x/09/75/37/097537af9e8e275f1f8c840bedf12cc3.jpg') center/cover no-repeat !important;
+    background: url('https://i.pinimg.com/736x/09/75/37/097537af9e8e275f1f8c840bedf12cc3.jpg') center/cover no-repeat scroll !important;
     background-color: #ffc0cb;
-    background-attachment: scroll;
   }
 
   #step3-valentine .card {
@@ -439,9 +434,8 @@
   }
 
   #step4-transition {
-    background: url('https://i.pinimg.com/736x/83/74/b4/8374b43d47ff0d190b2e99ddf88223ab.jpg') center/cover no-repeat !important;
+    background: url('https://i.pinimg.com/736x/83/74/b4/8374b43d47ff0d190b2e99ddf88223ab.jpg') center/cover no-repeat scroll !important;
     background-color: #f5e6d3;
-    background-attachment: scroll;
   }
 
   #step4-transition .card {
@@ -579,120 +573,6 @@
     user-select: none;
   }
 
-  @media (max-width: 480px) {
-    .screen {
-      padding: 12px;
-    }
-
-    .card {
-      padding: 18px 12px;
-      margin: 0;
-    }
-
-    .title {
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-
-    .caption {
-      font-size: 13px;
-      margin-bottom: 16px;
-    }
-
-    .btn {
-      padding: 9px 16px;
-      font-size: 13px;
-      min-width: 90px;
-    }
-
-    .btn-row {
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .container p {
-      font-size: 15px;
-      margin-bottom: 12px;
-    }
-
-    .final-question {
-      font-size: 18px;
-      padding: 12px;
-    }
-
-    .music-button {
-      font-size: 16px;
-      padding: 10px 16px;
-    }
-
-    .modal-content {
-      padding: 16px 12px;
-      border-radius: 10px;
-    }
-
-    .timer-section {
-      padding: 30px 10px;
-      margin-bottom: 16px;
-      border-radius: 10px;
-    }
-
-    .caption-timer {
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
-
-    .time-value {
-      font-size: 36px;
-    }
-
-    .separator {
-      font-size: 28px;
-      margin-bottom: 12px;
-    }
-
-    .timer-container {
-      gap: 8px;
-    }
-
-    #step5-wrapper {
-      padding: 16px 10px;
-      font-size: 15px;
-      line-height: 1.5;
-    }
-
-    .back-button-top .btn {
-      padding: 8px 14px;
-      font-size: 12px;
-      min-width: 80px;
-    }
-
-    .gif-container {
-      height: 120px;
-      margin-bottom: 12px;
-    }
-
-    .straw {
-      font-size: 18px;
-    }
-
-    .particle {
-      width: 3px;
-      height: 3px;
-    }
-
-    .step4-container {
-      gap: 12px;
-    }
-
-    .scroll-indicator {
-      bottom: 8px;
-    }
-
-    .scroll-indicator-arrow {
-      font-size: 14px;
-    }
-  }
-
   @supports (backdrop-filter: blur(10px)) {
     .card, .container, .modal-content {
       -webkit-backdrop-filter: blur(12px) saturate(1.1);
@@ -703,6 +583,132 @@
   @supports not (backdrop-filter: blur(10px)) {
     .card, .container, .modal-content {
       background: rgba(255,255,255,0.95);
+    }
+  }
+
+  /* Tablet (min 768px) */
+  @media (min-width: 768px) {
+    body {
+      background-attachment: scroll;
+    }
+
+    .screen {
+      padding: 24px;
+    }
+
+    .card {
+      max-width: 720px;
+      padding: 32px 28px;
+      border-radius: 18px;
+    }
+
+    .title {
+      font-size: 32px;
+    }
+
+    .caption {
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 800px;
+      padding: 28px 24px;
+      border-radius: 16px;
+    }
+
+    .container p {
+      font-size: 18px;
+    }
+
+    .timer-section {
+      padding: 50px 24px;
+    }
+
+    .time-value {
+      font-size: 60px;
+    }
+
+    .final-question {
+      font-size: 22px;
+    }
+
+    .music-button {
+      font-size: 20px;
+    }
+
+    #step5-wrapper {
+      padding: 28px 20px;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .gif-container {
+      height: 180px;
+    }
+  }
+
+  /* Desktop (min 1024px) */
+  @media (min-width: 1024px) {
+    body {
+      background-attachment: fixed;
+    }
+
+    .screen {
+      padding: 32px;
+    }
+
+    .card {
+      max-width: 780px;
+      padding: 40px 32px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.16);
+    }
+
+    .title {
+      font-size: 36px;
+    }
+
+    .caption {
+      font-size: 18px;
+    }
+
+    .container {
+      max-width: 880px;
+      padding: 32px 28px;
+    }
+
+    .container p {
+      font-size: 20px;
+    }
+
+    .timer-section {
+      padding: 64px 32px;
+    }
+
+    .time-value {
+      font-size: 72px;
+    }
+
+    .final-question {
+      font-size: 26px;
+    }
+
+    .music-button {
+      font-size: 22px;
+    }
+
+    .step4-image {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .step4-container {
+      gap: 20px;
+    }
+
+    #step5-wrapper {
+      padding: 36px 24px;
+      font-size: 20px;
+      line-height: 1.75;
     }
   }
 </style>
@@ -879,7 +885,6 @@
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
-// Reduce animation quality on low-end devices
 const isLowEndDevice = navigator.deviceMemory && navigator.deviceMemory <= 2;
 const particleCount = isLowEndDevice ? 20 : 40;
 const animationQuality = isLowEndDevice ? 0.6 : 1;
