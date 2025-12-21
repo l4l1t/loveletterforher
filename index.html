@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>💌🍓</title>
 
+<!-- GSAP & ScrollTrigger for animations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;600;700&family=Playfair+Display:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
@@ -34,6 +38,7 @@
   body{
     font-family:'Libre Baskerville', serif;
     background:url('https://i.pinimg.com/1200x/99/14/b2/9914b2c433da3c1c38dbb14f8da9c6b5.jpg') center/cover no-repeat fixed;
+    background-color: #fbe9e3;
     color:var(--text-main);
     min-height:100vh;
     touch-action: manipulation;
@@ -204,10 +209,22 @@
     100%{transform:translateY(-30vh) translateX(30px) rotate(360deg); opacity:0;}
   }
 
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   .timer-section {
     width: 100%;
     padding: 80px 20px;
     background: url('https://i.pinimg.com/1200x/e6/db/be/e6dbbeb5076149c0123db245e71ce169.jpg') center/cover no-repeat;
+    background-color: #f5e6d3;
     margin-bottom: 40px;
     position: relative;
     z-index: 2;
@@ -278,12 +295,13 @@
     border-radius:18px;
     padding:36px;
     box-shadow:0 12px 40px rgba(0,0,0,0.15);
+    -webkit-backdrop-filter: blur(2px);
     backdrop-filter: blur(2px);
     position:relative;
     z-index:2;
   }
 
-  p{margin:0 0 24px 0; font-size:22px;}
+  .container p{margin:0 0 24px 0; font-size:22px;}
   
   .highlight{
     background: linear-gradient(
@@ -305,6 +323,12 @@
   
   .highlight:hover {
     background-size: 100% 100%;
+  }
+
+  .scroll-reveal-paragraph {
+    opacity: 0;
+    filter: blur(10px);
+    transform: rotateY(5deg);
   }
 
   .final-question{
@@ -368,19 +392,9 @@
     transition:opacity .3s ease, visibility .3s ease;
   }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
   #step3-valentine {
     background: url('https://i.pinimg.com/736x/09/75/37/097537af9e8e275f1f8c840bedf12cc3.jpg') center/cover no-repeat fixed !important;
+    background-color: #ffc0cb;
   }
 
   #step3-valentine .card {
@@ -419,11 +433,13 @@
 
   #step4-transition {
     background: url('https://i.pinimg.com/736x/83/74/b4/8374b43d47ff0d190b2e99ddf88223ab.jpg') center/cover no-repeat fixed !important;
+    background-color: #f5e6d3;
   }
 
   #step4-transition .card {
     animation: slideUp 0.6s ease-out;
     background: rgba(255, 255, 255, 0.15);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
@@ -453,33 +469,12 @@
     background-color: #28a745 !important;
   }
 
-  .chat-screenshot {
-    background: url('https://i.pinimg.com/736x/f9/a6/f4/f9a6f4577be6df03821f25540d44ae03.jpg') center/cover no-repeat;
-    border-radius: 16px;
-    padding: 20px;
-    margin: 30px auto;
-    max-width: 400px;
-    position: relative;
-    border: 2px solid transparent;
-    animation: glowBorder 2s ease-in-out infinite alternate;
-    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
-    overflow: hidden;
-    backdrop-filter: blur(5px);
-  }
-
-  @keyframes glowBorder {
-    0% {
-      border-color: #ff2226;
-      box-shadow: 0 0 20px rgba(255, 34, 38, 0.5),
-                  0 0 30px rgba(255, 34, 38, 0.3),
-                  0 0 40px rgba(255, 34, 38, 0.2);
-    }
-    100% {
-      border-color: #ff2226;
-      box-shadow: 0 0 30px rgba(255, 34, 38, 0.7),
-                  0 0 40px rgba(255, 34, 38, 0.5),
-                  0 0 50px rgba(255, 34, 38, 0.3);
-    }
+  .step4-image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
   }
 
   .message-container {
@@ -496,6 +491,7 @@
     position: relative;
     font-size: 14px;
     line-height: 1.4;
+    -webkit-backdrop-filter: blur(2px);
     backdrop-filter: blur(2px);
   }
 
@@ -659,12 +655,6 @@
       margin: 10px;
     }
     
-    .chat-screenshot {
-      margin: 20px auto;
-      padding: 15px;
-      max-width: 90%;
-    }
-    
     .gif-container {
       height: 150px;
     }
@@ -758,6 +748,7 @@
   .card, .container, .modal-content {
     background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.45));
     border: 1px solid rgba(255,255,255,0.35);
+    -webkit-backdrop-filter: blur(18px) saturate(1.12);
     backdrop-filter: blur(18px) saturate(1.12);
   }
 
@@ -777,6 +768,7 @@
 
   .performance-optimized {
     will-change: transform, opacity;
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     -webkit-font-smoothing: antialiased;
   }
@@ -852,7 +844,6 @@
 
 <section class="screen" id="step3-valentine">
   <div class="float-container" id="strawberries3"></div>
-
   <div class="card">
     <div class="gif-container">
       <div class="tenor-gif-embed" data-postid="25422986" data-share-method="host" data-aspect-ratio="1" data-width="100%">
@@ -874,49 +865,7 @@
 <section class="screen" id="step4-transition">
   <div class="card">
     <div class="step4-container">
-      <div class="chat-screenshot">
-        <div class="message-container">
-          <div class="message-sender received">🍓</div>
-          <div class="message received">
-            Would you give up on me?
-          </div>
-          
-          <div class="message-sender sent">Me</div>
-          <div class="message sent">
-            Never
-          </div>
-          
-          <div class="message-sender received">🍓</div>
-          <div class="message received">
-            Will you unlove me?
-          </div>
-          
-          <div class="message-sender sent">Me</div>
-          <div class="message sent">
-            I can never unlove you 🍓💌
-          </div>
-          
-          <div class="message-sender received">🍓</div>
-          <div class="message received">
-            Would you ever consider cheating on me?
-          </div>
-          
-          <div class="message-sender sent">Me</div>
-          <div class="message sent">
-            That would never happen because I've been crushing on you for months 😭🥀- you're literally my fav notification
-          </div>
-          
-          <div class="message-sender received">🍓</div>
-          <div class="message received">
-            What if you find someone better than me?
-          </div>
-          
-          <div class="message-sender sent">Me</div>
-          <div class="message sent">
-            Nobody can replace you cupcakeeee, Ily Mommy 🛐
-          </div>
-        </div>
-      </div>
+      <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/7329b7b0-f5ea-460f-b2c4-7629929465e8" alt="She is amazing" class="step4-image" />
 
       <div class="step4-button-container">
         <div class="btn-row">
@@ -959,31 +908,31 @@
       </div>
     </div>
 
-    <p>There is something I gotta tell you for a long time – a very long time tbh – I knew you since <span class="highlight">June 3 11:24 PM</span> and I honestly have no idea on how you came into my life ( yes yes I remember every single detail about you because am madly in love cupcakeeee ),… I think I really like you, not just as a best friend... but more than that tbh.</p>
+    <p class="scroll-reveal-paragraph">There is something I gotta tell you for a long time – a very long time tbh – I knew you since <span class="highlight">June 3 11:24 PM</span> and I honestly have no idea on how you came into my life ( yes yes I remember every single detail about you because am madly in love cupcakeeee ),… I think I really like you, not just as a best friend... but more than that tbh.</p>
 
     <div style="text-align:center; margin:24px 0;">
       <img loading="lazy" src="https://i.pinimg.com/736x/cd/39/07/cd3907f05e0986b47746ff2867d5bb56.jpg" alt="Romantic moment" style="max-width:450px; width:100%; border-radius:14px; border:1px solid #000;" class="lazy-load" />
     </div>
 
-    <p>When I first texted you I lowkey hated you and thought you were the last person that I would fall in love with but idk something ... really something changed – we started giving out nicknames – and I loved every moment of it tbh I never expected that me at this time would be writing a love letter rn especially when I promised myself not to fall in love with anyone in my whole damn life – something inside me tells me louder that you are the one and you are the only one for me in this lifetime ––</p>
+    <p class="scroll-reveal-paragraph">When I first texted you I lowkey hated you and thought you were the last person that I would fall in love with but idk something ... really something changed – we started giving out nicknames – and I loved every moment of it tbh I never expected that me at this time would be writing a love letter rn especially when I promised myself not to fall in love with anyone in my whole damn life – something inside me tells me louder that you are the one and you are the only one for me in this lifetime ––</p>
 
-    <p><span class="highlight">Every single day when I text you I feel good – my stress ? GONE. and mental health was improved to an amazing extent</span> Istg I never felt like this in my whole lifetime never when I texted others – not a single bit.</p>
+    <p class="scroll-reveal-paragraph"><span class="highlight">Every single day when I text you I feel good – my stress ? GONE. and mental health was improved to an amazing extent</span> Istg I never felt like this in my whole lifetime never when I texted others – not a single bit.</p>
 
-    <p>Whenever you call me by cuteee nicknames like bbg and bitch I only got more happier – Your jokes , your amazing personality that no one can imitate is what actually made me fall in love with you and you better stay like this -</p>
+    <p class="scroll-reveal-paragraph">Whenever you call me by cuteee nicknames like bbg and bitch I only got more happier – Your jokes , your amazing personality that no one can imitate is what actually made me fall in love with you and you better stay like this -</p>
 
     <div style="text-align:center; margin:24px 0;">
-      <img loading="lazy" src="https://i.pinimg.com/1200x/d2/17/99/d21799b12411c212d80e5faf02d85f79.jpg" alt="Romantic moment 3" style="max-width:450px; width:100%; border-radius:14px; border:1px solid #000;" class="lazy-load" />
+      <img loading="lazy" src="https://i.pinimg.com/1200x/d2/17/99/d21799b12411c212d80e5faf02d85f79.jpg" alt="Romantic moment 2" style="max-width:450px; width:100%; border-radius:14px; border:1px solid #000;" class="lazy-load" />
     </div>
 
-    <p><span class="highlight">From the moment I get out of my bed you are the only thing in my mind...</span> I think "what would be she doing at the moment and where would she be" – "Is she well or not", "Is she sad", "Is she happy", "Does she like me back??" All these questions have been running on my mind – EVERYDAY and the times when you aren't online?? I missed you so much cupcakeee and the times when we were busy on our exams <span class="highlight">I always wished we spoke more, more and moreeee</span> and since you leave without texting me – I still remember you asking me to find a gf for myself but things took a turn and the one you asked me to find is actually you –</p>
+    <p class="scroll-reveal-paragraph"><span class="highlight">From the moment I get out of my bed you are the only thing in my mind...</span> I think "what would be she doing at the moment and where would she be" – "Is she well or not", "Is she sad", "Is she happy", "Does she like me back??" All these questions have been running on my mind – EVERYDAY and the times when you aren't online?? I missed you so much cupcakeee and the times when we were busy on our exams <span class="highlight">I always wished we spoke more, more and moreeee</span> and since you leave without texting me – I still remember you asking me to find a gf for myself but things took a turn and the one you asked me to find is actually you –</p>
 
-    <p>You made me feel valued and cared - you're the only person who made me feel special and <span class="highlight">made me fall in love with you again, again and again.</span></p>
+    <p class="scroll-reveal-paragraph">You made me feel valued and cared - you're the only person who made me feel special and <span class="highlight">made me fall in love with you again, again and again.</span></p>
 
-    <p>I promise – promise that I'll love you forever , send you these long ass paragraphs regularlyyy , never change myself for the sake of anyone, and make sure that you'll never be replaced by anyone. NEVER. – you'll never be unloved by me <span class="highlight">NEVER NO MATTER WHAT</span> – I promise you that I'll make you the HAPPIEST GIRL EVERRRR .</p>
+    <p class="scroll-reveal-paragraph">I promise – promise that I'll love you forever , send you these long ass paragraphs regularlyyy , never change myself for the sake of anyone, and make sure that you'll never be replaced by anyone. NEVER. – you'll never be unloved by me <span class="highlight">NEVER NO MATTER WHAT</span> – I promise you that I'll make you the HAPPIEST GIRL EVERRRR .</p>
 
-    <p><span class="highlight">Tears are the last thing I'd ever want to see from your eyes.</span> When you said "You have me" while texting me I hope you mean that my cupcakeee?? I promise you one more thing – You'll forever be my favourite notification and no matter how many people text me – your dms will be the first one to get opened by me -</p>
+    <p class="scroll-reveal-paragraph"><span class="highlight">Tears are the last thing I'd ever want to see from your eyes.</span> When you said "You have me" while texting me I hope you mean that my cupcakeee?? I promise you one more thing – You'll forever be my favourite notification and no matter how many people text me – your dms will be the first one to get opened by me -</p>
 
-    <p>You're staying with me no matter what... <span class="highlight">You're mineee</span> and forever be my sweet cupcake , muffin or my baby lmao</p>
+    <p class="scroll-reveal-paragraph">You're staying with me no matter what... <span class="highlight">You're mineee</span> and forever be my sweet cupcake , muffin or my baby lmao</p>
 
     <div style="text-align:center; margin:24px 0;">
       <img loading="lazy" src="https://i.pinimg.com/736x/39/69/d5/3969d5f3d547949466d5fc7c685dcbdf.jpg" alt="Lovely together" style="max-width:450px; width:100%; border-radius:14px; border:1px solid #000;" class="lazy-load" />
@@ -1013,8 +962,9 @@
 <audio id="pageTurnSound" src="https://assets.mixkit.co/sfx/preview/mixkit-page-turn-swipe-1462.mp3" preload="auto"></audio>
 
 <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
-
 <script>
+gsap.registerPlugin(ScrollTrigger);
+
 function playStep1Sound() {
   try {
     const sound = document.getElementById('step1Sound');
@@ -1097,9 +1047,9 @@ function goToStep4() {
   resetScrollIndicator();
   
   setTimeout(() => {
-    const chat = document.querySelector('.chat-screenshot');
-    if (chat) {
-      chat.style.animation = 'glowBorder 2s ease-in-out infinite alternate, slideUp 0.6s ease-out';
+    const img = document.querySelector('.step4-image');
+    if (img) {
+      img.style.animation = 'slideUp 0.6s ease-out';
     }
   }, 300);
 }
@@ -1113,11 +1063,14 @@ function goToStep5() {
   startTimer();
   spawnStrawberries('strawberries5');
   resetScrollIndicator();
+  
+  // Initialize scroll reveal animations for Step 5
   setTimeout(() => {
+    initializeScrollRevealAnimations();
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
-  }, 50);
+  }, 100);
 }
 
 function goBackToStep1() {
@@ -1143,6 +1096,7 @@ function goBackToStep3() {
 }
 
 function goBackToStep4() {
+  ScrollTrigger.getAll().forEach(trigger => trigger.kill());
   document.getElementById('step5-wrapper').classList.remove('active');
   document.getElementById('step4-transition').classList.add('active');
   window.scrollTo(0,0);
@@ -1197,6 +1151,35 @@ function spawnStrawberries(containerId) {
      const intervalId = setInterval(spawnOne, 1200);
      container.dataset.interval = intervalId;
   }
+}
+
+// ============ SCROLL REVEAL ANIMATIONS (STEP 5) ============
+function initializeScrollRevealAnimations() {
+  const paragraphs = document.querySelectorAll('.scroll-reveal-paragraph');
+
+  paragraphs.forEach((paragraph, index) => {
+    // Paragraph entrance - shows full para on minimal scroll
+    gsap.fromTo(
+      paragraph,
+      {
+        opacity: 0,
+        filter: 'blur(10px)',
+        transform: 'rotateY(5deg)'
+      },
+      {
+        opacity: 1,
+        filter: 'blur(0px)',
+        transform: 'rotateY(0deg)',
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: paragraph,
+          start: 'top 85%',
+          end: 'top 50%',
+          scrub: 0.8
+        }
+      }
+    );
+  });
 }
 
 const finalQuestion = document.querySelector('.final-question');
@@ -1326,4 +1309,3 @@ window.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
-
