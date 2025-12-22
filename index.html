@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <title>💌🍓</title>
+  <title>💌</title>
 
   <!-- GSAP & ScrollTrigger for animations -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -48,7 +48,7 @@
 
     body {
       font-family: 'Libre Baskerville', serif;
-      background: url('https://i.pinimg.com/1200x/99/14/b2/9914b2c433da3c1c38dbb14f8da9c6b5.jpg') center/cover no-repeat scroll;
+      background: url('https://i.pinimg.com/736x/51/5f/b9/515fb9e7d2546734eeaa13b0846995fd.jpg') center/cover no-repeat scroll;
       background-color: #fbe9e3;
       color: var(--text-main);
       min-height: 100vh;
@@ -116,6 +116,7 @@
     }
 
     .card {
+      z-index: 1;
       background: rgba(255, 255, 255, 0.85);
       padding: 24px 16px;
       border-radius: 16px;
@@ -331,6 +332,8 @@
     .container {
       max-width: 100%;
       margin: 0 auto;
+      margin-bottom: 300px;
+      /* Added margin to ensure last para reveal */
       background: var(--card-bg);
       border-radius: 12px;
       padding: 20px 12px;
@@ -452,7 +455,7 @@
     }
 
     #step3-valentine .card {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.3);
@@ -461,8 +464,9 @@
 
     #step3-valentine h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 24px;
-      color: #d63384;
+      font-size: 32px;
+      font-weight: 700;
+      color: #f62217;
       margin-bottom: 16px;
     }
 
@@ -492,9 +496,39 @@
     #step4-transition {
       background: url('https://i.pinimg.com/736x/83/74/b4/8374b43d47ff0d190b2e99ddf88223ab.jpg') center/cover no-repeat scroll !important;
       background-color: #f5e6d3;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Shared Overlay for Steps 1-4 & Promises */
+    #step1,
+    #step2,
+    #step3-valentine,
+    #step-promises,
+    #step4-transition {
+      position: relative;
+    }
+
+    #step1::before,
+    #step2::before,
+    #step3-valentine::before,
+    #step-promises::before,
+    #step4-transition::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.pinimg.com/originals/20/23/4b/20234b1062fbef102cd7a2ed1bb92645.gif') center/cover no-repeat;
+      opacity: 1.0;
+      z-index: 0;
+      pointer-events: none;
     }
 
     #step4-transition .card {
+      position: relative;
+      z-index: 2;
       animation: slideUp 0.6s ease-out;
       background: rgba(255, 255, 255, 0.15);
       -webkit-backdrop-filter: blur(6px);
@@ -598,6 +632,60 @@
         transform: translateY(-10vh) scale(0.8);
         opacity: 0;
       }
+    }
+
+    .checklist-container {
+      margin: 20px 0;
+      text-align: left;
+    }
+
+    .promise-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .promise-item:hover {
+      background: rgba(255, 255, 255, 0.6);
+      transform: translateX(5px);
+    }
+
+    .promise-item.checked {
+      background: rgba(255, 255, 255, 0.8);
+      border-left: 4px solid var(--theme-color);
+    }
+
+    .checkbox-circle {
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--theme-color);
+      border-radius: 50%;
+      margin-right: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+
+    .promise-item.checked .checkbox-circle {
+      background: var(--theme-color);
+      color: white;
+    }
+
+    .promise-text {
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    #step-promises {
+      background: url('https://i.pinimg.com/736x/d7/53/b3/d753b3868fe71d13709affb7c8f8c001.jpg') center/cover no-repeat scroll !important;
+      background-color: #ffd1dc;
     }
 
     .card,
@@ -832,8 +920,9 @@
     <div class="modal-content">
       <button class="modal-close" onclick="closeMusicModal()">←</button>
       <div class="music" role="region" aria-label="Playlist" style="margin:16px 0;">
-        <iframe src="https://open.spotify.com/embed/playlist/6h48LqwuHEgrCjrZmRCCGf?utm_source=generator" width="100%"
-          height="500" frameborder="0"
+        <iframe data-testid="embed-iframe" style="border-radius:12px"
+          src="https://open.spotify.com/embed/playlist/6h48LqwuHEgrCjrZmRCCGf?utm_source=generator&ver=2" width="100%"
+          height="500" frameBorder="0" allowfullscreen=""
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       </div>
     </div>
@@ -872,20 +961,69 @@
   </section>
 
   <section class="screen" id="step3-valentine">
-    <div class="float-container" id="strawberries3"></div>
     <div class="card">
       <div class="gif-container" id="minecraft-heart-container" style="position: relative;">
         <!-- Minecraft Heart will be rendered here -->
       </div>
 
-      <h1>Will you be my girlfriend?🍓🐺 </h1>
+      <h1>Will you be my Girlfriend 🫶🏻😭</h1>
 
       <div class="btn-row" style="justify-content: center;">
         <button class="btn btn-secondary" id="noBtn3" onclick="alert('Cupcakeee please 🥀 Ily so much 🙁')">No</button>
-        <button class="btn btn-primary" id="yesBtn3" onclick="goToStep4()">Yes</button>
+        <button class="btn btn-primary" id="yesBtn3" onclick="goToPromises()">Yes</button>
       </div>
 
       <button class="btn btn-secondary" onclick="goBackToStep2()"
+        style="margin-top:12px; width:100%; max-width:100px;">← Back</button>
+    </div>
+  </section>
+
+  <!-- NEW PROMISES STEP -->
+  <section class="screen" id="step-promises">
+    <div class="card">
+      <div class="gif-container" id="promises-heart-container" style="position: relative;">
+        <!-- Heart will be rendered here via JS -->
+      </div>
+
+      <div class="checklist-container">
+        <div class="promise-item" onclick="togglePromise(this)">
+          <div class="checkbox-circle"></div>
+          <div class="promise-text">I'll be loyal to you</div>
+        </div>
+        <div class="promise-item" onclick="togglePromise(this)">
+          <div class="checkbox-circle"></div>
+          <div class="promise-text">I won't cheat on you</div>
+        </div>
+        <div class="promise-item" onclick="togglePromise(this)">
+          <div class="checkbox-circle"></div>
+          <div class="promise-text">I would never let another girl come between us</div>
+        </div>
+        <div class="promise-item" onclick="togglePromise(this)">
+          <div class="checkbox-circle"></div>
+          <div class="promise-text">I will correct myself if I made a mistake</div>
+        </div>
+        <div class="promise-item" onclick="togglePromise(this)">
+          <div class="checkbox-circle"></div>
+          <div class="promise-text">I will never be toxic to you</div>
+        </div>
+        <div class="promise-item" onclick="togglePromise(this)">
+          <div class="checkbox-circle"></div>
+          <div class="promise-text">I will never change for anybody except you</div>
+        </div>
+        <div class="promise-item" onclick="togglePromise(this)">
+          <div class="checkbox-circle"></div>
+          <div class="promise-text">I'll take care of you 💕</div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" id="promisesNextBtn" onclick="goToStep4()" disabled
+          style="opacity:0.5; cursor:not-allowed;">
+          I accept 🧁💌
+        </button>
+      </div>
+
+      <button class="btn btn-secondary" onclick="goBackFromPromises()"
         style="margin-top:12px; width:100%; max-width:100px;">← Back</button>
     </div>
   </section>
@@ -939,8 +1077,7 @@
         my life ( yes yes I remember every single detail about you because am madly in love cupcakeeee ),… I think I
         really like you, not just as a best friend... but more than that tbh.</p>
 
-      <img loading="lazy" src="https://i.pinimg.com/736x/cd/39/07/cd3907f05e0986b47746ff2867d5bb56.jpg"
-        alt="Romantic moment" class="pinterest-image lazy-load performance-optimized" />
+
 
       <p class="scroll-reveal-paragraph">When I first texted you I lowkey hated you and thought you were the last person
         that I would fall in love with but idk something ... really something changed – we started giving out nicknames
@@ -956,8 +1093,7 @@
         happier – Your jokes , your amazing personality that no one can imitate is what actually made me fall in love
         with you and you better stay like this -</p>
 
-      <img loading="lazy" src="https://i.pinimg.com/1200x/d2/17/99/d21799b12411c212d80e5faf02d85f79.jpg"
-        alt="Romantic moment 2" class="pinterest-image lazy-load performance-optimized" />
+
 
       <p class="scroll-reveal-paragraph"><span class="highlight">From the moment I get out of my bed you are the only
           thing in my mind...</span> I think "what would be she doing at the moment and where would she be" – "Is she
@@ -983,8 +1119,7 @@
       <p class="scroll-reveal-paragraph">You're staying with me no matter what... <span class="highlight">You're
           mineee</span> and forever be my sweet cupcake , muffin or my baby lmao</p>
 
-      <img loading="lazy" src="https://i.pinimg.com/736x/39/69/d5/3969d5f3d547949466d5fc7c685dcbdf.jpg"
-        alt="Lovely together" class="pinterest-image lazy-load performance-optimized" />
+
 
       <p class="final-question">TELL ME – TELL ME ONE LAST TIME – Can I be your boyfriend forever??? &lt;3</p>
 
@@ -1002,14 +1137,9 @@
 
 
   <script>
-    (function initMinecraftHeart() {
-      // Wait for Three.js to load (simple check)
-      if (typeof THREE === 'undefined') {
-        window.addEventListener('load', initMinecraftHeart);
-        return;
-      }
-
-      const container = document.getElementById('minecraft-heart-container');
+    // Generic Function to Initialize a Heart in a Container
+    function runHeartLogic(containerId) {
+      const container = document.getElementById(containerId);
       if (!container) return;
 
       // Configuration
@@ -1020,7 +1150,6 @@
 
       // Scene
       const scene = new THREE.Scene();
-      // Transparent background
 
       const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
       camera.position.z = 18;
@@ -1113,6 +1242,18 @@
         }
       });
       resizeObserver.observe(container);
+    }
+
+    (function initMinecraftHeart() {
+      // Wait for Three.js to load (simple check)
+      if (typeof THREE === 'undefined') {
+        window.addEventListener('load', initMinecraftHeart);
+        return;
+      }
+
+      // Initialize both hearts
+      runHeartLogic('minecraft-heart-container');
+      runHeartLogic('promises-heart-container');
     })();
   </script>
   <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
@@ -1151,11 +1292,10 @@
     function goToStep3() {
       document.getElementById('step2').classList.remove('active');
       document.getElementById('step3-valentine').classList.add('active');
-      spawnStrawberries('strawberries3');
       resetScrollIndicator();
     }
 
-    function goToStep4() {
+    function goToPromises() {
       const yesBtn = document.getElementById('yesBtn3');
 
       // Turn button red
@@ -1173,13 +1313,58 @@
       // Wait for animation, then transition
       setTimeout(() => {
         document.getElementById('step3-valentine').classList.remove('active');
-        document.getElementById('step4-transition').classList.add('active');
+        document.getElementById('step-promises').classList.add('active');
         resetScrollIndicator();
 
         // Reset button style
         yesBtn.style.backgroundColor = '';
         yesBtn.style.transform = '';
-      }, 1200);
+      }, 1500);
+    }
+
+    function goBackFromPromises() {
+      document.getElementById('step-promises').classList.remove('active');
+      document.getElementById('step3-valentine').classList.add('active');
+      resetScrollIndicator();
+    }
+
+    function togglePromise(element) {
+      element.classList.toggle('checked');
+      const checkbox = element.querySelector('.checkbox-circle');
+      if (element.classList.contains('checked')) {
+        checkbox.innerHTML = '✓';
+      } else {
+        checkbox.innerHTML = '';
+      }
+
+      checkAllPromises();
+    }
+
+    function checkAllPromises() {
+      const total = document.querySelectorAll('.promise-item').length;
+      const checked = document.querySelectorAll('.promise-item.checked').length;
+      const nextBtn = document.getElementById('promisesNextBtn');
+
+      if (checked === total) {
+        nextBtn.disabled = false;
+        nextBtn.style.opacity = '1';
+        nextBtn.style.cursor = 'pointer';
+        nextBtn.classList.add('btn-primary');
+
+        // Celebrate completion
+        const rect = nextBtn.getBoundingClientRect();
+        createHeartBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      } else {
+        nextBtn.disabled = true;
+        nextBtn.style.opacity = '0.5';
+        nextBtn.style.cursor = 'not-allowed';
+      }
+    }
+
+    function goToStep4() {
+      document.getElementById('step-promises').classList.remove('active');
+      document.getElementById('step4-transition').classList.add('active');
+      resetScrollIndicator();
     }
 
     // Special mega heart burst for Yes button
@@ -1263,7 +1448,6 @@
     function goBackToStep3() {
       document.getElementById('step4-transition').classList.remove('active');
       document.getElementById('step3-valentine').classList.add('active');
-      spawnStrawberries('strawberries3');
       window.scrollTo(0, 0);
       resetScrollIndicator();
     }
@@ -1346,9 +1530,9 @@
             duration: 0.6 * animationQuality,
             scrollTrigger: {
               trigger: paragraph,
-              start: 'top 85%',
-              end: 'top 50%',
-              scrub: isLowEndDevice ? 1.2 : 0.8
+              start: 'top 95%',
+              end: 'top 60%',
+              scrub: isLowEndDevice ? 0.8 : 0.4
             }
           }
         );
