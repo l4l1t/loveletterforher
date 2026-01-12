@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;600;700&family=Playfair+Display:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Crimson+Text:wght@400;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;600;700&family=Playfair+Display:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Crimson+Text:wght@400;600;700&family=VT323&family=Press+Start+2P&display=swap"
     rel="stylesheet">
 
   <style>
@@ -202,13 +202,16 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       line-height: 1.6;
-      padding: 20px 12px;
+      padding: 0 0 20px 0;
+      /* No top padding to allow banner to be flush */
       min-height: 100vh;
       position: relative;
     }
 
     #step5-wrapper.active {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .float-container {
@@ -262,14 +265,25 @@
     }
 
     .timer-section {
-      width: 100%;
-      padding: 40px 12px;
-      background: url('https://i.pinimg.com/1200x/e6/db/be/e6dbbeb5076149c0123db245e71ce169.jpg') center/cover no-repeat scroll;
-      background-color: #f5e6d3;
+      width: 100vw;
+      /* Full viewport width */
+      margin-left: 50%;
+      transform: translateX(-50%);
+      /* Center the full-width element */
+      padding: 15px 12px;
+      /* Slimmer banner */
+      background-color: #ffffff !important;
+      background-image: url('https://i.pinimg.com/originals/37/0e/e4/370ee43ddc7a4d9fac49dcaf1b59a692.gif') !important;
+      background-position: center !important;
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
       margin-bottom: 24px;
       position: relative;
       z-index: 2;
-      border-radius: 12px;
+      border-radius: 0;
+      /* Flush corners for banner */
+      border-bottom: 2px solid #000;
+      /* Distinct banner bottom edge */
     }
 
     .timer-wrapper {
@@ -284,6 +298,7 @@
       font-weight: 600;
       text-align: center;
       color: #000;
+      /* Black for better contrast on white/GIF */
       margin-bottom: 30px;
       letter-spacing: 0.3px;
     }
@@ -308,6 +323,7 @@
       font-size: 48px;
       font-weight: 700;
       color: #000;
+      /* Black for better contrast */
       line-height: 1;
       letter-spacing: -1px;
     }
@@ -317,6 +333,7 @@
       font-size: 11px;
       font-weight: 400;
       color: #000;
+      /* Black for better contrast */
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
@@ -326,6 +343,7 @@
       font-size: 36px;
       font-weight: 700;
       color: #000;
+      /* Black for better contrast */
       margin-bottom: 16px;
     }
 
@@ -334,12 +352,10 @@
       margin: 0 auto;
       margin-bottom: 300px;
       /* Added margin to ensure last para reveal */
-      background: var(--card-bg);
+      background: #ffffff !important;
       border-radius: 12px;
       padding: 20px 12px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-      -webkit-backdrop-filter: blur(2px);
-      backdrop-filter: blur(2px);
       position: relative;
       z-index: 2;
     }
@@ -371,9 +387,7 @@
     }
 
     .scroll-reveal-paragraph {
-      opacity: 0;
-      filter: blur(8px);
-      transform: rotateY(3deg);
+      opacity: 1;
     }
 
     .final-question {
@@ -447,6 +461,93 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity .3s ease, visibility .3s ease;
+    }
+
+    /* Minecraft Voxel Envelope Container - Base (Mobile) */
+    #minecraft-envelope-container {
+      width: 100%;
+      max-width: 500px;
+      /* Slightly wider */
+      height: 400px;
+      /* Taller for bigger model */
+      margin: 20px auto;
+      cursor: pointer;
+      z-index: 10;
+      position: relative;
+      display: block;
+    }
+
+    #mc-hint {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid #000;
+      padding: 6px 12px;
+      font-family: 'Press Start 2P', system-ui, 'VT323', monospace;
+      font-size: 8px;
+      /* Smaller hint for mobile */
+      pointer-events: none;
+      z-index: 11;
+      display: none;
+      white-space: nowrap;
+    }
+
+    /* Minecraft Aesthetic Letter - Base (Mobile) */
+    .mc-letter {
+      background-color: #ffffff !important;
+      background-image: none !important;
+      border: 4px solid #443322 !important;
+      /* Thinner border for mobile */
+      box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2) !important;
+      font-family: 'VT323', monospace !important;
+      padding: 20px !important;
+      /* Less padding for mobile */
+      display: none;
+      /* Use display:none for reliable phone visibility */
+      margin: 20px auto !important;
+      /* Force centering */
+      max-width: 90%;
+      width: 100%;
+      max-width: 500px;
+      position: relative;
+      z-index: 2;
+      overflow-x: hidden;
+    }
+
+    /* Static Pixel Heart Decoration */
+    .mc-pixel-heart {
+      width: 16px;
+      height: 16px;
+      background-color: #ff3344;
+      display: inline-block;
+      position: absolute;
+      image-rendering: pixelated;
+      mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1,1 h2 v1 h-2 z M5,1 h2 v1 h-2 z M0,2 h8 v3 h-1 v1 h-2 v1 h-2 v-1 h-2 v-1 h-1 z" fill="black"/></svg>');
+      -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1,1 h2 v1 h-2 z M5,1 h2 v1 h-2 z M0,2 h8 v3 h-1 v1 h-2 v1 h-2 v-1 h-2 v-1 h-1 z" fill="black"/></svg>');
+      mask-size: contain;
+      -webkit-mask-size: contain;
+      mask-repeat: no-repeat;
+      -webkit-mask-repeat: no-repeat;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .mc-letter p {
+      font-family: 'VT323', monospace !important;
+      font-size: 26px !important;
+      /* Increased from 22px */
+      color: #000000 !important;
+      margin-bottom: 24px !important;
+      line-height: 1.4 !important;
+    }
+
+    .mc-letter .highlight {
+      background: rgba(255, 100, 150, 0.3) !important;
+      border-bottom: 2px solid #ff3333 !important;
+      padding: 0 2px !important;
+      display: inline !important;
     }
 
     #step3-valentine {
@@ -577,7 +678,7 @@
     }
 
     .pinterest-image {
-      max-width: 400px;
+      max-width: 250px;
       width: 100%;
       height: auto;
       border-radius: 10px;
@@ -802,7 +903,8 @@
       }
 
       .timer-section {
-        padding: 50px 24px;
+        padding: 30px 24px;
+        /* Reduced for banner look on tablet */
       }
 
       .time-value {
@@ -818,7 +920,7 @@
       }
 
       #step5-wrapper {
-        padding: 28px 20px;
+        padding: 0 0 28px 0;
         font-size: 18px;
         line-height: 1.7;
       }
@@ -828,7 +930,34 @@
       }
 
       .pinterest-image {
-        max-width: 550px;
+        max-width: 350px;
+      }
+
+      #mc-hint {
+        font-size: 10px;
+        padding: 8px 16px;
+        bottom: 20px;
+      }
+
+      #minecraft-envelope-container {
+        height: 400px;
+      }
+
+      .mc-letter {
+        border-width: 6px !important;
+        padding: 32px !important;
+      }
+
+      .mc-letter p {
+        font-size: 36px !important;
+        /* Increased from 30px */
+      }
+
+      .mc-letter .final-question {
+        font-family: 'Press Start 2P', system-ui !important;
+        font-size: 14px !important;
+        color: #cc0033 !important;
+        line-height: 1.6 !important;
       }
 
       #step5-wrapper .pinterest-image {
@@ -870,7 +999,8 @@
       }
 
       .timer-section {
-        padding: 64px 32px;
+        padding: 40px 32px;
+        /* Reduced for banner look on desktop */
       }
 
       .time-value {
@@ -890,13 +1020,13 @@
       }
 
       #step5-wrapper {
-        padding: 36px 24px;
+        padding: 0 0 36px 0;
         font-size: 20px;
         line-height: 1.75;
       }
 
       .pinterest-image {
-        max-width: 650px;
+        max-width: 450px;
       }
 
       #step5-wrapper .pinterest-image {
@@ -1033,7 +1163,8 @@
       <div class="step4-container">
         <img src="https://i.postimg.cc/Kz2ZMmY7/image4.png" alt="Love Image" class="pinterest-image">
         <div class="btn-row">
-          <button class="btn btn-primary" onclick="goToStep5()">Here's all I wanna say cupcake 🧁💌</button>
+          <button class="btn btn-primary" onclick="event.stopPropagation(); goToStep5()">Here's all I wanna say cupcake
+            🧁💌</button>
         </div>
       </div>
 
@@ -1049,7 +1180,7 @@
 
     <div class="float-container" id="strawberries5"></div>
 
-    <main class="container" style="margin-top: 40px;">
+    <div id="timer-header">
       <div class="timer-section">
         <div class="timer-wrapper">
           <div class="caption-timer">I found my treasure since 💌</div>
@@ -1071,6 +1202,14 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div id="minecraft-envelope-container">
+      <div id="mc-hint">CLICK TO OPEN 💌</div>
+    </div>
+
+    <main class="container mc-letter" id="letter-main-content"
+      style="margin-top: 40px; opacity: 0; transform: translateY(50px);">
 
       <p class="scroll-reveal-paragraph">There is something I gotta tell you for a long time – a very long time tbh – I
         knew you since <span class="highlight">June 3 11:24 PM</span> and I honestly have no idea on how you came into
@@ -1255,6 +1394,121 @@
       runHeartLogic('minecraft-heart-container');
       runHeartLogic('promises-heart-container');
     })();
+
+    // --- Minecraft Voxel Envelope Logic ---
+    let mcScene, mcCamera, mcRenderer, mcEnvelopeGroup, mcFlapGroup;
+    let isEnvelopeOpening = false;
+    const mcClock = new THREE.Clock();
+
+    function initMinecraftEnvelope() {
+      const container = document.getElementById('minecraft-envelope-container');
+      if (!container) return;
+
+      mcScene = new THREE.Scene();
+      mcCamera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+      mcCamera.position.set(0, 0, 30);
+
+      mcRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      mcRenderer.setSize(container.clientWidth, container.clientHeight);
+      mcRenderer.setPixelRatio(window.devicePixelRatio);
+      container.appendChild(mcRenderer.domElement);
+
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+      mcScene.add(ambientLight);
+
+      const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
+      dirLight.position.set(10, 20, 10);
+      mcScene.add(dirLight);
+
+      createVoxelEnvelopeModel();
+      animateMC();
+
+      // Add listener with a tiny delay to prevent accidental trigger from previous step
+      setTimeout(() => {
+        container.addEventListener('click', handleEnvelopeClick);
+      }, 100);
+
+      document.getElementById('mc-hint').style.display = 'block';
+
+      // Handle Resize for Envelope
+      const resizeObserver = new ResizeObserver(() => {
+        if (container.clientWidth > 0 && container.clientHeight > 0) {
+          mcCamera.aspect = container.clientWidth / container.clientHeight;
+          mcCamera.updateProjectionMatrix();
+          mcRenderer.setSize(container.clientWidth, container.clientHeight);
+        }
+      });
+      resizeObserver.observe(container);
+    }
+
+    function createVoxelEnvelopeModel() {
+      mcEnvelopeGroup = new THREE.Group();
+      mcScene.add(mcEnvelopeGroup);
+      mcEnvelopeGroup.scale.set(1.4, 1.4, 1.4); // Scale up the entire envelope
+
+      const voxelSize = 1;
+      const whiteMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.8 });
+      const heartMat = new THREE.MeshStandardMaterial({ color: 0xff3344, roughness: 0.5 });
+      const borderMat = new THREE.LineBasicMaterial({ color: 0x000000 }); // Changed to sharp black
+
+      function addCube(x, y, z, mat, parent = mcEnvelopeGroup) {
+        const geo = new THREE.BoxGeometry(voxelSize, voxelSize, voxelSize);
+        const mesh = new THREE.Mesh(geo, mat);
+        mesh.position.set(x, y, z);
+        const edges = new THREE.EdgesGeometry(geo);
+        const line = new THREE.LineSegments(edges, borderMat);
+        mesh.add(line);
+        parent.add(mesh);
+        return mesh;
+      }
+
+      for (let x = -6; x < 6; x++) {
+        for (let y = -4; y < 4; y++) {
+          addCube(x, y, -0.5, whiteMat);
+          if (y < 2) addCube(x, y, 0.5, whiteMat);
+        }
+      }
+
+      mcFlapGroup = new THREE.Group();
+      mcFlapGroup.position.set(0, 4, 1);
+      mcEnvelopeGroup.add(mcFlapGroup);
+
+      for (let x = -6; x < 6; x++) {
+        const limit = 6 - Math.abs(x + 0.5);
+        for (let y = 0; y < 4; y++) {
+          if (y < limit) addCube(x, -y, 0, whiteMat, mcFlapGroup);
+        }
+      }
+
+      // Heart Seal
+      addCube(-0.5, -3, 0.6, heartMat, mcFlapGroup);
+      addCube(0.5, -3, 0.6, heartMat, mcFlapGroup);
+      addCube(0, -2.5, 0.6, heartMat, mcFlapGroup);
+    }
+
+    function animateMC() {
+      requestAnimationFrame(animateMC);
+      const t = mcClock.getElapsedTime();
+      if (!isEnvelopeOpening && mcEnvelopeGroup) {
+        mcEnvelopeGroup.rotation.y = Math.sin(t * 0.5) * 0.2;
+        mcEnvelopeGroup.rotation.x = Math.cos(t * 0.3) * 0.1;
+        mcEnvelopeGroup.position.y = Math.sin(t * 1.5) * 0.5;
+      }
+      if (mcRenderer) mcRenderer.render(mcScene, mcCamera);
+    }
+
+    function handleEnvelopeClick() {
+      if (isEnvelopeOpening) return;
+      isEnvelopeOpening = true;
+      document.getElementById('mc-hint').style.display = 'none';
+
+      const tl = gsap.timeline();
+      tl.to(mcEnvelopeGroup.rotation, { x: 0, y: 0, z: 0, duration: 0.5 })
+        .to(mcFlapGroup.rotation, { x: Math.PI * 0.8, duration: 1.2, ease: "power2.inOut" }, 0.5)
+        .set(document.getElementById('letter-main-content'), { display: 'block' })
+        .to(document.getElementById('letter-main-content'), { opacity: 1, y: 0, duration: 1, ease: "back.out(1.2)" }, 1.2)
+        .to(document.getElementById('minecraft-envelope-container'), { opacity: 0, display: 'none', duration: 0.8 }, 1.5);
+    }
   </script>
   <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
   <script>
@@ -1419,6 +1673,23 @@
       window.scrollTo(0, 0);
       document.getElementById('step4-transition').classList.remove('active');
       document.getElementById('step5-wrapper').classList.add('active');
+
+      // Reset Step 5 State
+      document.getElementById('letter-main-content').style.opacity = '0';
+      document.getElementById('letter-main-content').style.display = 'none';
+      document.getElementById('letter-main-content').style.transform = 'translateY(50px)';
+      document.getElementById('minecraft-envelope-container').style.display = 'block';
+      document.getElementById('minecraft-envelope-container').style.opacity = '1';
+      document.getElementById('timer-header').style.opacity = '1';
+      isEnvelopeOpening = false;
+
+      // Clear Previous 3D Envelope if any
+      const container = document.getElementById('minecraft-envelope-container');
+      const canvas = container.querySelector('canvas');
+      if (canvas) canvas.remove();
+
+      initMinecraftEnvelope();
+
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
       startTimer();
@@ -1426,7 +1697,6 @@
       resetScrollIndicator();
 
       setTimeout(() => {
-        initializeScrollRevealAnimations();
         window.scrollTo(0, 0);
       }, 100);
     }
@@ -1512,32 +1782,7 @@
       }
     }
 
-    function initializeScrollRevealAnimations() {
-      const paragraphs = document.querySelectorAll('.scroll-reveal-paragraph');
 
-      paragraphs.forEach((paragraph, index) => {
-        gsap.fromTo(
-          paragraph,
-          {
-            opacity: 0,
-            filter: 'blur(8px)',
-            transform: 'rotateY(3deg)'
-          },
-          {
-            opacity: 1,
-            filter: 'blur(0px)',
-            transform: 'rotateY(0deg)',
-            duration: 0.6 * animationQuality,
-            scrollTrigger: {
-              trigger: paragraph,
-              start: 'top 95%',
-              end: 'top 60%',
-              scrub: isLowEndDevice ? 0.8 : 0.4
-            }
-          }
-        );
-      });
-    }
 
     const finalQuestion = document.querySelector('.final-question');
 
