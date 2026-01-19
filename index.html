@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;600;700&family=Playfair+Display:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Crimson+Text:wght@400;600;700&family=VT323&family=Press+Start+2P&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;600;700&family=Playfair+Display:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Crimson+Text:wght@400;600;700&display=swap"
     rel="stylesheet">
 
   <style>
@@ -129,7 +129,8 @@
 
     .title {
       font-family: 'Playfair Display SC', serif;
-      font-size: 28px;
+      font-size: 24px;
+      /* Reduced for Mobile */
       letter-spacing: 0.04em;
       margin-bottom: 12px;
       color: var(--text-main);
@@ -151,15 +152,30 @@
       position: relative;
     }
 
+    /* Mobile specific button adjustment */
+    @media (max-width: 480px) {
+      .btn-row {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 200px;
+      }
+    }
+
     .btn {
-      padding: 10px 18px;
+      padding: 12px 24px;
+      /* Larger touch target */
       border-radius: 999px;
       border: none;
       background: #fff;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 15px;
+      /* Slightly larger text */
       transition: all .2s ease;
-      min-width: 100px;
+      min-width: 110px;
       font-family: inherit;
       font-weight: 600;
       touch-action: manipulation;
@@ -197,21 +213,19 @@
       background-color: #ffc0cb;
       font-family: 'Crimson Text', serif;
       color: var(--text-color);
-      font-size: 18px;
+      font-size: 16px;
+      /* Optimized for mobile reading */
       font-weight: 700;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       line-height: 1.6;
-      padding: 0 0 20px 0;
-      /* No top padding to allow banner to be flush */
+      padding: 16px 12px;
       min-height: 100vh;
       position: relative;
     }
 
     #step5-wrapper.active {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      display: block;
     }
 
     .float-container {
@@ -265,25 +279,15 @@
     }
 
     .timer-section {
-      width: 100vw;
-      /* Full viewport width */
-      margin-left: 50%;
-      transform: translateX(-50%);
-      /* Center the full-width element */
-      padding: 15px 12px;
-      /* Slimmer banner */
-      background-color: #ffffff !important;
-      background-image: url('https://i.pinimg.com/originals/37/0e/e4/370ee43ddc7a4d9fac49dcaf1b59a692.gif') !important;
-      background-position: center !important;
-      background-size: cover !important;
-      background-repeat: no-repeat !important;
+      width: 100%;
+      padding: 30px 12px;
+      /* reduced padding */
+      background: url('https://i.pinimg.com/originals/37/e2/47/37e24784fbea63da42ef5246cb7b3941.gif') center/cover no-repeat scroll;
+      background-color: #f5e6d3;
       margin-bottom: 24px;
       position: relative;
       z-index: 2;
-      border-radius: 0;
-      /* Flush corners for banner */
-      border-bottom: 2px solid #000;
-      /* Distinct banner bottom edge */
+      border-radius: 12px;
     }
 
     .timer-wrapper {
@@ -294,19 +298,20 @@
 
     .caption-timer {
       font-family: 'Playfair Display', serif;
-      font-size: 20px;
+      font-size: 18px;
+      /* scaled down */
       font-weight: 600;
       text-align: center;
       color: #000;
-      /* Black for better contrast on white/GIF */
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       letter-spacing: 0.3px;
     }
 
     .timer-container {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
+      /* reduced gap */
       justify-content: center;
       flex-wrap: wrap;
     }
@@ -320,10 +325,10 @@
 
     .time-value {
       font-family: 'Playfair Display', serif;
-      font-size: 48px;
+      font-size: 36px;
+      /* Reset base for mobile */
       font-weight: 700;
       color: #000;
-      /* Black for better contrast */
       line-height: 1;
       letter-spacing: -1px;
     }
@@ -333,7 +338,6 @@
       font-size: 11px;
       font-weight: 400;
       color: #000;
-      /* Black for better contrast */
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
@@ -343,7 +347,6 @@
       font-size: 36px;
       font-weight: 700;
       color: #000;
-      /* Black for better contrast */
       margin-bottom: 16px;
     }
 
@@ -352,10 +355,12 @@
       margin: 0 auto;
       margin-bottom: 300px;
       /* Added margin to ensure last para reveal */
-      background: #ffffff !important;
+      background: var(--card-bg);
       border-radius: 12px;
       padding: 20px 12px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      -webkit-backdrop-filter: blur(2px);
+      backdrop-filter: blur(2px);
       position: relative;
       z-index: 2;
     }
@@ -388,6 +393,8 @@
 
     .scroll-reveal-paragraph {
       opacity: 1;
+      filter: none;
+      transform: none;
     }
 
     .final-question {
@@ -463,93 +470,6 @@
       transition: opacity .3s ease, visibility .3s ease;
     }
 
-    /* Minecraft Voxel Envelope Container - Base (Mobile) */
-    #minecraft-envelope-container {
-      width: 100%;
-      max-width: 500px;
-      /* Slightly wider */
-      height: 400px;
-      /* Taller for bigger model */
-      margin: 20px auto;
-      cursor: pointer;
-      z-index: 10;
-      position: relative;
-      display: block;
-    }
-
-    #mc-hint {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.9);
-      border: 2px solid #000;
-      padding: 6px 12px;
-      font-family: 'Press Start 2P', system-ui, 'VT323', monospace;
-      font-size: 8px;
-      /* Smaller hint for mobile */
-      pointer-events: none;
-      z-index: 11;
-      display: none;
-      white-space: nowrap;
-    }
-
-    /* Minecraft Aesthetic Letter - Base (Mobile) */
-    .mc-letter {
-      background-color: #ffffff !important;
-      background-image: none !important;
-      border: 4px solid #443322 !important;
-      /* Thinner border for mobile */
-      box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2) !important;
-      font-family: 'VT323', monospace !important;
-      padding: 20px !important;
-      /* Less padding for mobile */
-      display: none;
-      /* Use display:none for reliable phone visibility */
-      margin: 20px auto !important;
-      /* Force centering */
-      max-width: 90%;
-      width: 100%;
-      max-width: 500px;
-      position: relative;
-      z-index: 2;
-      overflow-x: hidden;
-    }
-
-    /* Static Pixel Heart Decoration */
-    .mc-pixel-heart {
-      width: 16px;
-      height: 16px;
-      background-color: #ff3344;
-      display: inline-block;
-      position: absolute;
-      image-rendering: pixelated;
-      mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1,1 h2 v1 h-2 z M5,1 h2 v1 h-2 z M0,2 h8 v3 h-1 v1 h-2 v1 h-2 v-1 h-2 v-1 h-1 z" fill="black"/></svg>');
-      -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1,1 h2 v1 h-2 z M5,1 h2 v1 h-2 z M0,2 h8 v3 h-1 v1 h-2 v1 h-2 v-1 h-2 v-1 h-1 z" fill="black"/></svg>');
-      mask-size: contain;
-      -webkit-mask-size: contain;
-      mask-repeat: no-repeat;
-      -webkit-mask-repeat: no-repeat;
-      opacity: 0.8;
-      pointer-events: none;
-    }
-
-    .mc-letter p {
-      font-family: 'VT323', monospace !important;
-      font-size: 26px !important;
-      /* Increased from 22px */
-      color: #000000 !important;
-      margin-bottom: 24px !important;
-      line-height: 1.4 !important;
-    }
-
-    .mc-letter .highlight {
-      background: rgba(255, 100, 150, 0.3) !important;
-      border-bottom: 2px solid #ff3333 !important;
-      padding: 0 2px !important;
-      display: inline !important;
-    }
-
     #step3-valentine {
       background: url('https://i.pinimg.com/736x/ac/f6/cd/acf6cdb009a53766c5b5ee9620d16228.jpg') center/cover no-repeat scroll !important;
       background-color: #ffc0cb;
@@ -565,7 +485,8 @@
 
     #step3-valentine h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 32px;
+      font-size: 24px;
+      /* Scaled down for mobile */
       font-weight: 700;
       color: #f62217;
       margin-bottom: 16px;
@@ -595,7 +516,7 @@
     }
 
     #step4-transition {
-      background: url('https://i.pinimg.com/736x/83/74/b4/8374b43d47ff0d190b2e99ddf88223ab.jpg') center/cover no-repeat scroll !important;
+      background: url('https://i.pinimg.com/736x/ad/d7/c4/add7c4728068546315c4bbbb4f1fb415.jpg') center/cover no-repeat scroll !important;
       background-color: #f5e6d3;
       position: relative;
       overflow: hidden;
@@ -631,7 +552,7 @@
       position: relative;
       z-index: 2;
       animation: slideUp 0.6s ease-out;
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.60);
       -webkit-backdrop-filter: blur(6px);
       backdrop-filter: blur(6px);
       border: 1px solid rgba(255, 255, 255, 0.2);
@@ -678,7 +599,7 @@
     }
 
     .pinterest-image {
-      max-width: 250px;
+      max-width: 400px;
       width: 100%;
       height: auto;
       border-radius: 10px;
@@ -903,8 +824,7 @@
       }
 
       .timer-section {
-        padding: 30px 24px;
-        /* Reduced for banner look on tablet */
+        padding: 50px 24px;
       }
 
       .time-value {
@@ -920,7 +840,7 @@
       }
 
       #step5-wrapper {
-        padding: 0 0 28px 0;
+        padding: 28px 20px;
         font-size: 18px;
         line-height: 1.7;
       }
@@ -930,38 +850,15 @@
       }
 
       .pinterest-image {
-        max-width: 350px;
-      }
-
-      #mc-hint {
-        font-size: 10px;
-        padding: 8px 16px;
-        bottom: 20px;
-      }
-
-      #minecraft-envelope-container {
-        height: 400px;
-      }
-
-      .mc-letter {
-        border-width: 6px !important;
-        padding: 32px !important;
-      }
-
-      .mc-letter p {
-        font-size: 36px !important;
-        /* Increased from 30px */
-      }
-
-      .mc-letter .final-question {
-        font-family: 'Press Start 2P', system-ui !important;
-        font-size: 14px !important;
-        color: #cc0033 !important;
-        line-height: 1.6 !important;
+        max-width: 550px;
       }
 
       #step5-wrapper .pinterest-image {
         max-width: 350px;
+      }
+
+      #step3-valentine h1 {
+        font-size: 32px;
       }
     }
 
@@ -999,8 +896,7 @@
       }
 
       .timer-section {
-        padding: 40px 32px;
-        /* Reduced for banner look on desktop */
+        padding: 64px 32px;
       }
 
       .time-value {
@@ -1020,17 +916,21 @@
       }
 
       #step5-wrapper {
-        padding: 0 0 36px 0;
+        padding: 36px 24px;
         font-size: 20px;
         line-height: 1.75;
       }
 
       .pinterest-image {
-        max-width: 450px;
+        max-width: 650px;
       }
 
       #step5-wrapper .pinterest-image {
         max-width: 400px;
+      }
+
+      #step3-valentine h1 {
+        font-size: 36px;
       }
     }
   </style>
@@ -1061,7 +961,7 @@
   <section class="screen active" id="step1">
     <div class="card">
       <h1 class="title">💌</h1>
-      <p class="caption">I was holding back my feelings for a very long time and it just exploded right now</p>
+      <p class="caption">I wanted to tell you something for a very long time 💌😔</p>
       <div class="btn-row">
         <button class="btn btn-primary" onclick="goToStep2()">Oh really?</button>
       </div>
@@ -1071,6 +971,8 @@
   <section class="screen" id="step2">
     <div class="card">
       <h1 class="title">Are you in love with me?</h1>
+      <img src="https://i.pinimg.com/originals/af/44/15/af4415553bc6a54f580b194f93cacf3e.gif" alt="Love GIF"
+        style="max-width: 300px; height: auto; margin: 12px auto; display: block; border-radius: 8px;">
       <div class="btn-row">
         <button class="btn btn-secondary" onclick="showNoPanel()">No</button>
         <button class="btn btn-primary" onclick="showYesPanel()">Yes</button>
@@ -1079,7 +981,7 @@
         style="margin-top:12px; width:100%; max-width:100px;">← Back</button>
 
       <div id="noPanel" style="margin-top:16px; display:none;">
-        <p>Cupcakeee please 🥀 Ily so much 🙁</p>
+        <p>Cupcakee please 🥀 Ily so much 🙁</p>
       </div>
 
       <div id="yesPanel" style="margin-top:16px; display:none;">
@@ -1096,7 +998,7 @@
         <!-- Minecraft Heart will be rendered here -->
       </div>
 
-      <h1>Will you be my Girlfriend 🫶🏻😭</h1>
+      <h1>WILL YOU BE MY GIRLFRIEND???😻💌 </h1>
 
       <div class="btn-row" style="justify-content: center;">
         <button class="btn btn-secondary" id="noBtn3" onclick="alert('Cupcakeee please 🥀 Ily so much 🙁')">No</button>
@@ -1116,40 +1018,40 @@
       </div>
 
       <div class="checklist-container">
-        <div class="promise-item" onclick="togglePromise(this)">
+        <div class="promise-item" onclick="togglePromise(this)" style="opacity: 0; transform: translateY(20px);">
           <div class="checkbox-circle"></div>
-          <div class="promise-text">I'll be loyal to you</div>
+          <div class="promise-text">I'll never cheat on you 💍</div>
         </div>
-        <div class="promise-item" onclick="togglePromise(this)">
+        <div class="promise-item" onclick="togglePromise(this)" style="opacity: 0; transform: translateY(20px);">
           <div class="checkbox-circle"></div>
-          <div class="promise-text">I won't cheat on you</div>
+          <div class="promise-text">I promise to make myself better for you ✨</div>
         </div>
-        <div class="promise-item" onclick="togglePromise(this)">
+        <div class="promise-item" onclick="togglePromise(this)" style="opacity: 0; transform: translateY(20px);">
           <div class="checkbox-circle"></div>
-          <div class="promise-text">I would never let another girl come between us</div>
+          <div class="promise-text">I'll comfort you whenever you feel sad 🧸</div>
         </div>
-        <div class="promise-item" onclick="togglePromise(this)">
+        <div class="promise-item" onclick="togglePromise(this)" style="opacity: 0; transform: translateY(20px);">
           <div class="checkbox-circle"></div>
-          <div class="promise-text">I will correct myself if I made a mistake</div>
+          <div class="promise-text">I'll correct myself if I'm wrong 💌</div>
         </div>
-        <div class="promise-item" onclick="togglePromise(this)">
+        <div class="promise-item" onclick="togglePromise(this)" style="opacity: 0; transform: translateY(20px);">
           <div class="checkbox-circle"></div>
-          <div class="promise-text">I will never be toxic to you</div>
+          <div class="promise-text">I'll never be toxic to you 🌸</div>
         </div>
-        <div class="promise-item" onclick="togglePromise(this)">
+        <div class="promise-item" onclick="togglePromise(this)" style="opacity: 0; transform: translateY(20px);">
           <div class="checkbox-circle"></div>
-          <div class="promise-text">I will never change for anybody except you</div>
+          <div class="promise-text">I'll never change for anybody 🌟</div>
         </div>
-        <div class="promise-item" onclick="togglePromise(this)">
+        <div class="promise-item" onclick="togglePromise(this)" style="opacity: 0; transform: translateY(20px);">
           <div class="checkbox-circle"></div>
-          <div class="promise-text">I'll take care of you 💕</div>
+          <div class="promise-text">I'll take care of you 🫶🏻</div>
         </div>
       </div>
 
-      <div class="btn-row">
+      <div class="btn-row" style="position: relative; z-index: 10;">
         <button class="btn btn-primary" id="promisesNextBtn" onclick="goToStep4()" disabled
-          style="opacity:0.5; cursor:not-allowed;">
-          I accept 🧁💌
+          style="opacity:0.5; cursor:not-allowed; position: relative; z-index: 11;">
+          I accept !!! 💌
         </button>
       </div>
 
@@ -1161,10 +1063,8 @@
   <section class="screen" id="step4-transition">
     <div class="card">
       <div class="step4-container">
-        <img src="https://i.postimg.cc/Kz2ZMmY7/image4.png" alt="Love Image" class="pinterest-image">
         <div class="btn-row">
-          <button class="btn btn-primary" onclick="event.stopPropagation(); goToStep5()">Here's all I wanna say cupcake
-            🧁💌</button>
+          <button class="btn btn-primary" onclick="goToStep5()">Here's all I wanna say for a very long time 🥀</button>
         </div>
       </div>
 
@@ -1180,10 +1080,10 @@
 
     <div class="float-container" id="strawberries5"></div>
 
-    <div id="timer-header">
+    <main class="container" style="margin-top: 40px;">
       <div class="timer-section">
         <div class="timer-wrapper">
-          <div class="caption-timer">I found my treasure since 💌</div>
+          <div class="caption-timer">Every second here is wrapped in the thought of you💌</div>
           <div class="timer-container">
             <div class="time-unit">
               <span class="time-value" id="days">00</span>
@@ -1202,19 +1102,12 @@
           </div>
         </div>
       </div>
-    </div>
 
-    <div id="minecraft-envelope-container">
-      <div id="mc-hint">CLICK TO OPEN 💌</div>
-    </div>
-
-    <main class="container mc-letter" id="letter-main-content"
-      style="margin-top: 40px; opacity: 0; transform: translateY(50px);">
-
-      <p class="scroll-reveal-paragraph">There is something I gotta tell you for a long time – a very long time tbh – I
+      <p class="scroll-reveal-paragraph">There is something I gotta tell you for a very long time – I
         knew you since <span class="highlight">June 3 11:24 PM</span> and I honestly have no idea on how you came into
-        my life ( yes yes I remember every single detail about you because am madly in love cupcakeeee ),… I think I
-        really like you, not just as a best friend... but more than that tbh.</p>
+        my life ( yes yes I remember every single detail about you because am madly in love with you for a very long
+        time) I think I
+        really like you, not just as a best friend but more than that tbh.</p>
 
 
 
@@ -1226,24 +1119,31 @@
 
       <p class="scroll-reveal-paragraph"><span class="highlight">Every single day when I text you I feel good – my
           stress ? GONE. and mental health was improved to an amazing extent</span> Istg I never felt like this in my
-        whole lifetime never when I texted others – not a single bit.</p>
+        whole life time never when I spoke to others online or offline – not even a single bit.</p>
 
-      <p class="scroll-reveal-paragraph">Whenever you call me by cuteee nicknames like bbg and bitch I only got more
-        happier – Your jokes , your amazing personality that no one can imitate is what actually made me fall in love
+      <p class="scroll-reveal-paragraph">Whenever you call me by nicknames like bbg and bitch I only got more
+        happier – I know bbg is a girl nickname but when you called me that it made me feel really special , it's not
+        just a nickname It is something which is personally so special to me ngl 😔 – Your goofy jokes, your amazing
+        personality that no one can imitate is what actually made me fall in love
         with you and you better stay like this -</p>
 
 
 
       <p class="scroll-reveal-paragraph"><span class="highlight">From the moment I get out of my bed you are the only
-          thing in my mind...</span> I think "what would be she doing at the moment and where would she be" – "Is she
+          thing in my mind tbh I just prayed everyday that you should never fall in love with anyone else and leave me
+          like nothing happened</span> I would be thinking "what would be she doing at the moment and where would she
+        be" – "Is she
         well or not", "Is she sad", "Is she happy", "Does she like me back??" All these questions have been running on
-        my mind – EVERYDAY and the times when you aren't online?? I missed you so much cupcakeee and the times when we
-        were busy on our exams <span class="highlight">I always wished we spoke more, more and moreeee</span> and since
-        you leave without texting me – I still remember you asking me to find a gf for myself but things took a turn and
-        the one you asked me to find is actually you –</p>
+        my mind – EVERYDAY and the times when you aren't online?? I missed you so much cupcake and the times when we
+        were busy on our exams <span class="highlight">I always wished we spoke more, more and moreeee 🥀😔 During our
+          exam prep I felt like I lost smth because speaking with you lowkey became my habit and more of an addiction
+          tbh </span> – I still remember you asking me to find a gf for myself but things took a turn and
+        the one you asked me to find is actually you lmao - did you really think someone else is out here in the world
+        who can be a better girl than you for me? 😭 –</p>
 
       <p class="scroll-reveal-paragraph">You made me feel valued and cared - you're the only person who made me feel
-        special and <span class="highlight">made me fall in love with you again, again and again.</span></p>
+        special , You were with me when I thought I was good for nothing <span class="highlight">and made me fall in
+          love with you again, again and again.</span></p>
 
       <p class="scroll-reveal-paragraph">I promise – promise that I'll love you forever , send you these long ass
         paragraphs regularlyyy , never change myself for the sake of anyone, and make sure that you'll never be replaced
@@ -1251,16 +1151,21 @@
         promise you that I'll make you the HAPPIEST GIRL EVERRRR .</p>
 
       <p class="scroll-reveal-paragraph"><span class="highlight">Tears are the last thing I'd ever want to see from your
-          eyes.</span> When you said "You have me" while texting me I hope you mean that my cupcakeee?? I promise you
-        one more thing – You'll forever be my favourite notification and no matter how many people text me – your dms
-        will be the first one to get opened by me -</p>
+          eyes. No matter what , it doesn't matter how many people trash talk about you or how many people try to pull
+          you down- I would always stay with you cupcake 💌 share everything with me and I'll comfort you no matter what
+        </span> When you said "You have me" while texting me I hope
+        you mean that ☹️ I promise you one more thing – You'll forever be my favourite notification and no matter how
+        many people text me – your dms
+        will be the first one to get opened by me and I promise you that I'll never leave you it's always you and me
+        against the whole damn world do you get it? </p>
 
       <p class="scroll-reveal-paragraph">You're staying with me no matter what... <span class="highlight">You're
-          mineee</span> and forever be my sweet cupcake , muffin or my baby lmao</p>
+          mineee FOREVER and once you accept me you're literally stuck with me FOREVER and am never leaving you</span>
+        💌</p>
 
 
 
-      <p class="final-question">TELL ME – TELL ME ONE LAST TIME – Can I be your boyfriend forever??? &lt;3</p>
+      <p class="final-question">TELL ME – TELL ME ONE LAST TIME – Can I be your boyfriend forever???🥀 &lt;3</p>
 
       <div style="text-align:center; margin:20px 0;">
         <button class="btn btn-primary music-button" onclick="openMusicModal()">
@@ -1394,121 +1299,6 @@
       runHeartLogic('minecraft-heart-container');
       runHeartLogic('promises-heart-container');
     })();
-
-    // --- Minecraft Voxel Envelope Logic ---
-    let mcScene, mcCamera, mcRenderer, mcEnvelopeGroup, mcFlapGroup;
-    let isEnvelopeOpening = false;
-    const mcClock = new THREE.Clock();
-
-    function initMinecraftEnvelope() {
-      const container = document.getElementById('minecraft-envelope-container');
-      if (!container) return;
-
-      mcScene = new THREE.Scene();
-      mcCamera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-      mcCamera.position.set(0, 0, 30);
-
-      mcRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      mcRenderer.setSize(container.clientWidth, container.clientHeight);
-      mcRenderer.setPixelRatio(window.devicePixelRatio);
-      container.appendChild(mcRenderer.domElement);
-
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-      mcScene.add(ambientLight);
-
-      const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
-      dirLight.position.set(10, 20, 10);
-      mcScene.add(dirLight);
-
-      createVoxelEnvelopeModel();
-      animateMC();
-
-      // Add listener with a tiny delay to prevent accidental trigger from previous step
-      setTimeout(() => {
-        container.addEventListener('click', handleEnvelopeClick);
-      }, 100);
-
-      document.getElementById('mc-hint').style.display = 'block';
-
-      // Handle Resize for Envelope
-      const resizeObserver = new ResizeObserver(() => {
-        if (container.clientWidth > 0 && container.clientHeight > 0) {
-          mcCamera.aspect = container.clientWidth / container.clientHeight;
-          mcCamera.updateProjectionMatrix();
-          mcRenderer.setSize(container.clientWidth, container.clientHeight);
-        }
-      });
-      resizeObserver.observe(container);
-    }
-
-    function createVoxelEnvelopeModel() {
-      mcEnvelopeGroup = new THREE.Group();
-      mcScene.add(mcEnvelopeGroup);
-      mcEnvelopeGroup.scale.set(1.4, 1.4, 1.4); // Scale up the entire envelope
-
-      const voxelSize = 1;
-      const whiteMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.8 });
-      const heartMat = new THREE.MeshStandardMaterial({ color: 0xff3344, roughness: 0.5 });
-      const borderMat = new THREE.LineBasicMaterial({ color: 0x000000 }); // Changed to sharp black
-
-      function addCube(x, y, z, mat, parent = mcEnvelopeGroup) {
-        const geo = new THREE.BoxGeometry(voxelSize, voxelSize, voxelSize);
-        const mesh = new THREE.Mesh(geo, mat);
-        mesh.position.set(x, y, z);
-        const edges = new THREE.EdgesGeometry(geo);
-        const line = new THREE.LineSegments(edges, borderMat);
-        mesh.add(line);
-        parent.add(mesh);
-        return mesh;
-      }
-
-      for (let x = -6; x < 6; x++) {
-        for (let y = -4; y < 4; y++) {
-          addCube(x, y, -0.5, whiteMat);
-          if (y < 2) addCube(x, y, 0.5, whiteMat);
-        }
-      }
-
-      mcFlapGroup = new THREE.Group();
-      mcFlapGroup.position.set(0, 4, 1);
-      mcEnvelopeGroup.add(mcFlapGroup);
-
-      for (let x = -6; x < 6; x++) {
-        const limit = 6 - Math.abs(x + 0.5);
-        for (let y = 0; y < 4; y++) {
-          if (y < limit) addCube(x, -y, 0, whiteMat, mcFlapGroup);
-        }
-      }
-
-      // Heart Seal
-      addCube(-0.5, -3, 0.6, heartMat, mcFlapGroup);
-      addCube(0.5, -3, 0.6, heartMat, mcFlapGroup);
-      addCube(0, -2.5, 0.6, heartMat, mcFlapGroup);
-    }
-
-    function animateMC() {
-      requestAnimationFrame(animateMC);
-      const t = mcClock.getElapsedTime();
-      if (!isEnvelopeOpening && mcEnvelopeGroup) {
-        mcEnvelopeGroup.rotation.y = Math.sin(t * 0.5) * 0.2;
-        mcEnvelopeGroup.rotation.x = Math.cos(t * 0.3) * 0.1;
-        mcEnvelopeGroup.position.y = Math.sin(t * 1.5) * 0.5;
-      }
-      if (mcRenderer) mcRenderer.render(mcScene, mcCamera);
-    }
-
-    function handleEnvelopeClick() {
-      if (isEnvelopeOpening) return;
-      isEnvelopeOpening = true;
-      document.getElementById('mc-hint').style.display = 'none';
-
-      const tl = gsap.timeline();
-      tl.to(mcEnvelopeGroup.rotation, { x: 0, y: 0, z: 0, duration: 0.5 })
-        .to(mcFlapGroup.rotation, { x: Math.PI * 0.8, duration: 1.2, ease: "power2.inOut" }, 0.5)
-        .set(document.getElementById('letter-main-content'), { display: 'block' })
-        .to(document.getElementById('letter-main-content'), { opacity: 1, y: 0, duration: 1, ease: "back.out(1.2)" }, 1.2)
-        .to(document.getElementById('minecraft-envelope-container'), { opacity: 0, display: 'none', duration: 0.8 }, 1.5);
-    }
   </script>
   <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
   <script>
@@ -1570,6 +1360,15 @@
         document.getElementById('step-promises').classList.add('active');
         resetScrollIndicator();
 
+        // Staggered entry for promises
+        gsap.to('#step-promises .promise-item', {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.15,
+          ease: "back.out(1.7)"
+        });
+
         // Reset button style
         yesBtn.style.backgroundColor = '';
         yesBtn.style.transform = '';
@@ -1587,6 +1386,10 @@
       const checkbox = element.querySelector('.checkbox-circle');
       if (element.classList.contains('checked')) {
         checkbox.innerHTML = '✓';
+        // Bounce and heart burst on check
+        gsap.fromTo(element, { scale: 1 }, { scale: 1.05, duration: 0.2, yoyo: true, repeat: 1 });
+        const rect = element.getBoundingClientRect();
+        createHeartBurst(rect.left + 20, rect.top + 20);
       } else {
         checkbox.innerHTML = '';
       }
@@ -1595,30 +1398,58 @@
     }
 
     function checkAllPromises() {
-      const total = document.querySelectorAll('.promise-item').length;
-      const checked = document.querySelectorAll('.promise-item.checked').length;
+      const items = document.querySelectorAll('#step-promises .promise-item');
+      const total = items.length;
+      const checked = document.querySelectorAll('#step-promises .promise-item.checked').length;
       const nextBtn = document.getElementById('promisesNextBtn');
 
-      if (checked === total) {
-        nextBtn.disabled = false;
-        nextBtn.style.opacity = '1';
-        nextBtn.style.cursor = 'pointer';
-        nextBtn.classList.add('btn-primary');
+      if (checked === total && total > 0) {
+        if (nextBtn.disabled) {
+          nextBtn.disabled = false;
+          nextBtn.style.opacity = '1';
+          nextBtn.style.cursor = 'pointer';
+          nextBtn.classList.add('btn-primary');
 
-        // Celebrate completion
-        const rect = nextBtn.getBoundingClientRect();
-        createHeartBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+          // Celebrate completion
+          const rect = nextBtn.getBoundingClientRect();
+          createHeartBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+          // Continuous pulse when ready (only if not already pulsing)
+          gsap.killTweensOf(nextBtn);
+          gsap.to(nextBtn, {
+            scale: 1.05,
+            duration: 0.8,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+          });
+        }
       } else {
         nextBtn.disabled = true;
         nextBtn.style.opacity = '0.5';
         nextBtn.style.cursor = 'not-allowed';
+        gsap.killTweensOf(nextBtn);
+        gsap.to(nextBtn, { scale: 1, duration: 0.3 });
       }
     }
 
     function goToStep4() {
-      document.getElementById('step-promises').classList.remove('active');
-      document.getElementById('step4-transition').classList.add('active');
-      resetScrollIndicator();
+      const nextBtn = document.getElementById('promisesNextBtn');
+      const rect = nextBtn.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+
+      // MEGA heart burst - 20 hearts, large effect
+      createMegaHeartBurst(x, y);
+
+      // Pulse button effect
+      gsap.to(nextBtn, { scale: 1.2, duration: 0.2, yoyo: true, repeat: 1 });
+
+      setTimeout(() => {
+        document.getElementById('step-promises').classList.remove('active');
+        document.getElementById('step4-transition').classList.add('active');
+        resetScrollIndicator();
+      }, 800);
     }
 
     // Special mega heart burst for Yes button
@@ -1627,12 +1458,12 @@
 
       for (let i = 0; i < heartCount; i++) {
         const heart = document.createElement('span');
-        heart.textContent = '\u{2764}\u{FE0F}'; // ❤️
+        heart.textContent = '\u{1FA77}'; // 🩷
         heart.style.cssText = `
           position: fixed;
           left: ${x}px;
           top: ${y}px;
-          font-size: ${30 + Math.random() * 25}px;
+          font-size: ${45 + Math.random() * 40}px;
           pointer-events: none;
           z-index: 99999;
           user-select: none;
@@ -1642,7 +1473,7 @@
 
         // Calculate burst direction with MUCH larger spread
         const angle = (Math.PI * 2 * i) / heartCount + (Math.random() - 0.5) * 0.5;
-        const distance = 150 + Math.random() * 250; // Much larger distance (150-400px)
+        const distance = 350 + Math.random() * 400; // Increased spread even more
         const endX = x + Math.cos(angle) * distance;
         const endY = y + Math.sin(angle) * distance - 60;
 
@@ -1650,14 +1481,21 @@
         const animation = heart.animate([
           {
             transform: 'translate(-50%, -50%) scale(0.1) rotate(0deg)',
-            opacity: 1
+            opacity: 1,
+            offset: 0
           },
           {
             transform: `translate(${endX - x - 15}px, ${endY - y - 15}px) scale(1.8) rotate(${Math.random() * 1080}deg)`,
-            opacity: 0
+            opacity: 1,
+            offset: 0.8 // Stay fully visible until 80%
+          },
+          {
+            transform: `translate(${endX - x - 15}px, ${endY - y - 15}px) scale(1.8) rotate(${Math.random() * 1080}deg)`,
+            opacity: 0,
+            offset: 1
           }
         ], {
-          duration: 1200 + Math.random() * 400,
+          duration: 2000 + Math.random() * 500, // Explicitly around 2s as requested
           easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
         });
 
@@ -1673,23 +1511,6 @@
       window.scrollTo(0, 0);
       document.getElementById('step4-transition').classList.remove('active');
       document.getElementById('step5-wrapper').classList.add('active');
-
-      // Reset Step 5 State
-      document.getElementById('letter-main-content').style.opacity = '0';
-      document.getElementById('letter-main-content').style.display = 'none';
-      document.getElementById('letter-main-content').style.transform = 'translateY(50px)';
-      document.getElementById('minecraft-envelope-container').style.display = 'block';
-      document.getElementById('minecraft-envelope-container').style.opacity = '1';
-      document.getElementById('timer-header').style.opacity = '1';
-      isEnvelopeOpening = false;
-
-      // Clear Previous 3D Envelope if any
-      const container = document.getElementById('minecraft-envelope-container');
-      const canvas = container.querySelector('canvas');
-      if (canvas) canvas.remove();
-
-      initMinecraftEnvelope();
-
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
       startTimer();
@@ -1783,7 +1604,6 @@
     }
 
 
-
     const finalQuestion = document.querySelector('.final-question');
 
     if (finalQuestion) {
@@ -1834,6 +1654,57 @@
       });
     });
 
+    // Heart Burst Effect Function - defined globally so togglePromise and checkAllPromises can use it
+    function createHeartBurst(x, y) {
+      const heartCount = 8; // Number of hearts per burst
+      const container = document.body;
+
+      for (let i = 0; i < heartCount; i++) {
+        const heart = document.createElement('div');
+        heart.textContent = '\u{1FA77}'; // 🩷
+        heart.style.position = 'fixed';
+        heart.style.left = x + 'px';
+        heart.style.top = y + 'px';
+        heart.style.fontSize = (Math.random() * 30 + 25) + 'px';
+        heart.style.pointerEvents = 'none';
+        heart.style.zIndex = '9999';
+        heart.style.userSelect = 'none';
+
+        container.appendChild(heart);
+
+        // Random angle for burst effect
+        const angle = (Math.PI * 2 * i) / heartCount + (Math.random() - 0.5) * 0.3;
+        const distance = Math.random() * 150 + 150; // Increased gap/distance further
+        const targetX = Math.cos(angle) * distance;
+        const targetY = Math.sin(angle) * distance - 30;
+
+        const rotation = (Math.random() - 0.5) * 360;
+
+        // Use CSS animation for smoother performance
+        heart.animate([
+          {
+            transform: 'translate(0, 0) scale(0.3) rotate(0deg)',
+            opacity: 1,
+            offset: 0
+          },
+          {
+            transform: `translate(${targetX}px, ${targetY}px) scale(1) rotate(${rotation}deg)`,
+            opacity: 1,
+            offset: 0.8 // Stay fully visible until 80%
+          },
+          {
+            transform: `translate(${targetX}px, ${targetY}px) scale(1) rotate(${rotation}deg)`,
+            opacity: 0,
+            offset: 1
+          }
+        ], {
+          duration: 2000 + Math.random() * 500, // Explicitly around 2s as requested
+          easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+          fill: 'forwards'
+        }).onfinish = () => heart.remove();
+      }
+    }
+
     (function setupEnhancements() {
       const particlesContainer = document.getElementById('particlesLayer');
       if (particlesContainer && !isLowEndDevice) {
@@ -1851,50 +1722,6 @@
         }
       }
 
-      // Heart Burst Effect Function
-      function createHeartBurst(x, y) {
-        const heartCount = 8; // Number of hearts per burst
-        const container = document.body;
-
-        for (let i = 0; i < heartCount; i++) {
-          const heart = document.createElement('div');
-          heart.textContent = '\u{1F495}'; // 💕
-          heart.style.position = 'fixed';
-          heart.style.left = x + 'px';
-          heart.style.top = y + 'px';
-          heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
-          heart.style.pointerEvents = 'none';
-          heart.style.zIndex = '9999';
-          heart.style.userSelect = 'none';
-
-          container.appendChild(heart);
-
-          // Random angle for burst effect
-          const angle = (Math.PI * 2 * i) / heartCount + (Math.random() - 0.5) * 0.3;
-          const distance = Math.random() * 80 + 60;
-          const targetX = Math.cos(angle) * distance;
-          const targetY = Math.sin(angle) * distance - 30;
-
-          const duration = 700 + Math.random() * 300;
-          const rotation = (Math.random() - 0.5) * 360;
-
-          // Use CSS animation for smoother performance
-          heart.animate([
-            {
-              transform: 'translate(0, 0) scale(0.3) rotate(0deg)',
-              opacity: 1
-            },
-            {
-              transform: `translate(${targetX}px, ${targetY}px) scale(1) rotate(${rotation}deg)`,
-              opacity: 0
-            }
-          ], {
-            duration: duration,
-            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-            fill: 'forwards'
-          }).onfinish = () => heart.remove();
-        }
-      }
 
       function playSfx(id) {
         // Sound removed
